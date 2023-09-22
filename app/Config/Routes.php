@@ -36,8 +36,12 @@ $routes->group('dashboard', static function ($routes) {
 
     $routes->group('databases', ['namespace' => 'Dashboard'], static function ($routes) {
         $routes->get('/', 'DatabaseManagementController::getDatabases');
-        $routes->match(['get', 'post'], 'new', 'DatabaseManagementController::newDatabase');
-        $routes->match(['get', 'post'], 'delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
+
+        $routes->get('new', 'DatabaseManagementController::newDatabase');
+        $routes->post('new', 'DatabaseManagementController::newDatabase'); // AJAX oriented route
+
+        $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
+        $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1'); // AJAX oriented route
 
         $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
@@ -45,9 +49,15 @@ $routes->group('dashboard', static function ($routes) {
     $routes->group('websites', ['namespace' => 'Dashboard'], static function ($routes) {
         $routes->get('/', 'WebsiteManagementController::getWebsites');
         $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
-        $routes->match(['get', 'post'], 'new', 'WebsiteManagementController::newWebsite');
-        $routes->match(['get', 'post'], 'edit/(:num)', 'WebsiteManagementController::editWebsite/$1');
+
+        $routes->get('new', 'WebsiteManagementController::newWebsite');
+        $routes->post('new', 'WebsiteManagementController::newWebsite'); // AJAX oriented route
+
+        $routes->get('edit/(:num)', 'WebsiteManagementController::editWebsite/$1');
+        $routes->post('edit/(:num)', 'WebsiteManagementController::editWebsite/$1'); // AJAX oriented route
+
         $routes->match(['get', 'post'], 'delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1');
+        $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1'); // AJAX oriented route
     });
 
     $routes->group('file-management', ['namespace' => 'Dashboard'], static function ($routes) {
