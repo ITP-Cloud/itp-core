@@ -30,6 +30,30 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('about', 'Home::about');
+
+$routes->group('dashboard', static function ($routes) {
+    $routes->group('databases', static function ($routes) {
+        $routes->get('/', '::');
+        $routes->get('/database/(:num)', '::');
+        $routes->get('new', '::');
+        $routes->get('delete/(:num)', '::');
+        $routes->get('phpmyadmin', '::');
+    });
+
+    $routes->group('websites', static function ($routes) {
+        $routes->get('/', '::');
+        $routes->get('website/(:num)', '::');
+        $routes->get('new', '::');
+        $routes->get('edit/(:num)', '::');
+        $routes->get('delete/(:num)', '::');
+    });
+
+    $routes->group('file-management', static function ($routes) {
+        $routes->get('file-explorer', 'Admin\Blog::index');
+        $routes->get('ftp', 'Admin\Blog::index');
+    });
+});
 
 $routes->get('login', '\Auth\LoginController::loginView');
 $routes->get('register', '\Auth\RegisterController::registerView');
