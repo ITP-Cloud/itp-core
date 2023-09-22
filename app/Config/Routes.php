@@ -32,7 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('about', 'Home::about');
 
-$routes->group('console', ['namespace' => 'DevConsole'], static function ($routes) {
+$routes->group('console', ['namespace' => 'App\Controllers\DevConsole'], static function ($routes) {
 
     $routes->get('/', 'DevConsoleController::index');
 
