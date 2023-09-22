@@ -41,4 +41,51 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    //--------------------------------------------------------------------
+    // Rules For Registration
+    //--------------------------------------------------------------------
+    public $registration = [
+        'firstname' => [
+            'label' =>  'First Name',
+            'rules' => 'required',
+        ],
+        'lastname' => [
+            'label' =>  'Last Name',
+            'rules' => 'required',
+        ],
+        'phone' => [
+            'label' =>  'Phone',
+            'rules' => 'required|numeric|min_length[10]|max_length[14]|is_unique[users.phone]',
+        ],
+        'student_id' => [
+            'label' =>  'Student ID',
+            'rules' => 'required|numeric|min_length[5]|max_length[20]|is_unique[users.student_id]',
+        ],
+        'institution' => [
+            'label' =>  'Institution',
+            'rules' => 'required|trim',
+        ],
+        'country' => [
+            'label' =>  'Country',
+            'rules' => 'required',
+        ],
+        'email' => [
+            'label' => 'Auth.email',
+            'rules' => [
+                'required',
+                'max_length[254]',
+                'valid_email',
+                'is_unique[auth_identities.secret]',
+            ],
+        ],
+        'password' => [
+            'label' => 'Auth.password',
+            'rules' => 'required|strong_password',
+        ],
+        'password_confirm' => [
+            'label' => 'Auth.passwordConfirm',
+            'rules' => 'required|matches[password]',
+        ],
+    ];
 }
