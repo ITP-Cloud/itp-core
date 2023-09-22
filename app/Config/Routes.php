@@ -34,16 +34,15 @@ $routes->get('about', 'Home::about');
 
 $routes->group('dashboard', static function ($routes) {
 
-    $routes->group('databases', static function ($routes) {
+    $routes->group('databases', ['namespace' => 'Dashboard'], static function ($routes) {
         $routes->get('/', 'DatabaseManagementController::getDatabases');
-        $routes->get('database/(:num)', 'DatabaseManagementController::getDatabase/$1');
         $routes->match(['get', 'post'], 'new', 'DatabaseManagementController::newDatabase');
         $routes->match(['get', 'post'], 'delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
 
         $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
 
-    $routes->group('websites', static function ($routes) {
+    $routes->group('websites', ['namespace' => 'Dashboard'], static function ($routes) {
         $routes->get('/', 'WebsiteManagementController::getWebsites');
         $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
         $routes->match(['get', 'post'], 'new', 'WebsiteManagementController::newWebsite');
@@ -51,7 +50,7 @@ $routes->group('dashboard', static function ($routes) {
         $routes->match(['get', 'post'], 'delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1');
     });
 
-    $routes->group('file-management', static function ($routes) {
+    $routes->group('file-management', ['namespace' => 'Dashboard'], static function ($routes) {
         $routes->get('file-explorer', 'FileManagementController::getFileExplorer');
         $routes->get('ftp', 'FileManagementController::getFTPInfo');
     });
