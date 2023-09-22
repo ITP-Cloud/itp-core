@@ -38,10 +38,10 @@ $routes->group('dashboard', static function ($routes) {
         $routes->get('/', 'DatabaseManagementController::getDatabases');
 
         $routes->get('new', 'DatabaseManagementController::newDatabase');
-        $routes->post('new', 'DatabaseManagementController::newDatabase'); // AJAX oriented route
+        $routes->post('new', 'DatabaseManagementController::newDatabaseAJAX'); // AJAX oriented route
 
         $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
-        $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1'); // AJAX oriented route
+        $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabaseAJAX/$1'); // AJAX oriented route
 
         $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
@@ -51,13 +51,13 @@ $routes->group('dashboard', static function ($routes) {
         $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
 
         $routes->get('new', 'WebsiteManagementController::newWebsite');
-        $routes->post('new', 'WebsiteManagementController::newWebsite'); // AJAX oriented route
+        $routes->post('new', 'WebsiteManagementController::newWebsiteAJAX'); // AJAX oriented route
 
         $routes->get('edit/(:num)', 'WebsiteManagementController::editWebsite/$1');
-        $routes->post('edit/(:num)', 'WebsiteManagementController::editWebsite/$1'); // AJAX oriented route
+        $routes->post('edit/(:num)', 'WebsiteManagementController::editWebsiteAJAX/$1'); // AJAX oriented route
 
         $routes->match(['get', 'post'], 'delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1');
-        $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1'); // AJAX oriented route
+        $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsiteAJAX/$1'); // AJAX oriented route
     });
 
     $routes->group('file-management', ['namespace' => 'Dashboard'], static function ($routes) {
