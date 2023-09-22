@@ -32,9 +32,11 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('about', 'Home::about');
 
-$routes->group('dashboard', static function ($routes) {
+$routes->group('console', ['namespace' => 'DevConsole'], static function ($routes) {
 
-    $routes->group('databases', ['namespace' => 'Dashboard'], static function ($routes) {
+    $routes->get('/', 'DevConsoleController::index');
+
+    $routes->group('databases', static function ($routes) {
         $routes->get('/', 'DatabaseManagementController::getDatabases');
 
         $routes->get('new', 'DatabaseManagementController::newDatabase');
@@ -46,7 +48,7 @@ $routes->group('dashboard', static function ($routes) {
         $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
 
-    $routes->group('websites', ['namespace' => 'Dashboard'], static function ($routes) {
+    $routes->group('websites', static function ($routes) {
         $routes->get('/', 'WebsiteManagementController::getWebsites');
         $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
 
@@ -60,14 +62,14 @@ $routes->group('dashboard', static function ($routes) {
         $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsiteAJAX/$1'); // AJAX oriented route
     });
 
-    $routes->group('file-management', ['namespace' => 'Dashboard'], static function ($routes) {
+    $routes->group('file-management', static function ($routes) {
         $routes->get('file-explorer', 'FileManagementController::getFileExplorer');
         $routes->get('ftp', 'FileManagementController::getFTPInfo');
     });
 });
 
-$routes->get('login', '\Auth\LoginController::loginView');
-$routes->get('register', '\Auth\RegisterController::registerView');
+$routes->get('login', 'Auth\LoginController::loginView');
+$routes->get('register', 'Auth\RegisterController::registerView');
 
 service('auth')->routes($routes);
 
