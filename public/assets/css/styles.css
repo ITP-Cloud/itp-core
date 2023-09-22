@@ -72,7 +72,7 @@
   --bs-light-indigo-rgb: 235, 243, 254;
   --bs-dark-light-rgb: 42, 53, 71;
   --bs-light-gray-rgb: 246, 249, 252;
-  --bs-primary-text: #4a6ccc;
+  --bs-primary-text: #40abff;
   --bs-secondary-text: #2A3547;
   --bs-success-text: #0fb294;
   --bs-info-text: #325d99;
@@ -170,7 +170,7 @@
   --bs-tertiary-bg: #2b3035;
   --bs-tertiary-bg-rgb: 43, 48, 53;
   --bs-emphasis-color: #fff;
-  --bs-primary-text: #9eb7ff;
+  --bs-primary-text: #40abff;
   --bs-secondary-text: #DFE5EF;
   --bs-success-text: #71ebd5;
   --bs-info-text: #98c3ff;
