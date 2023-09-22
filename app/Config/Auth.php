@@ -15,7 +15,7 @@ use CodeIgniter\Shield\Authentication\Passwords\DictionaryValidator;
 use CodeIgniter\Shield\Authentication\Passwords\NothingPersonalValidator;
 use CodeIgniter\Shield\Authentication\Passwords\PwnedValidator;
 use CodeIgniter\Shield\Authentication\Passwords\ValidatorInterface;
-use CodeIgniter\Shield\Models\UserModel;
+use App\Models\UserModel;
 
 class Auth extends ShieldAuth
 {
@@ -109,7 +109,7 @@ class Auth extends ShieldAuth
      * @var array<string, class-string<ActionInterface>|null>
      */
     public array $actions = [
-        'register' => null,
+        'register' => \CodeIgniter\Shield\Authentication\Actions\EmailActivator::class,
         'login'    => null,
     ];
 
@@ -291,7 +291,7 @@ class Auth extends ShieldAuth
      * For example:
      *     $personalFields = ['firstname', 'lastname'];
      */
-    public array $personalFields = ['firstname', 'lastname'];
+    public array $personalFields = ['firstname', 'lastname', 'email', 'student_id'];
 
     /**
      * --------------------------------------------------------------------
