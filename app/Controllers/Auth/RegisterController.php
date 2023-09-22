@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Auth;
 
 use App\Controllers\BaseController;
 use CodeIgniter\Shield\Controllers\RegisterController as ShieldRegisterController;
@@ -13,6 +13,8 @@ class RegisterController extends ShieldRegisterController
         if (auth()->loggedIn()) {
             return redirect()->to(config('Auth')->loginRedirect());
         }
+
+        helper('form');
 
         return view('auth/register');
     }

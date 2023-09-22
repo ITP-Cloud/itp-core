@@ -1,11 +1,18 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\DevConsole;
 
 use App\Controllers\BaseController;
 
 class WebsiteManagementController extends BaseController
 {
+    private $data;
+
+    public function __construct()
+    {
+        $this->data = [];
+    }
+
     public function getWebsites()
     {
         //
