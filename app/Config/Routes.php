@@ -63,8 +63,8 @@ $routes->group('console', ['namespace' => 'App\Controllers\DevConsole'], static 
     });
 
     $routes->group('file-management', static function ($routes) {
-        $routes->get('file-explorer', 'FileManagementController::getFileExplorer');
-        $routes->get('ftp', 'FileManagementController::getFTPInfo');
+        $routes->get('/', 'FileManagementController::getManagers');
+        $routes->get('file-browser', 'FileManagementController::getFileBrowser');
     });
 });
 
