@@ -21,6 +21,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'kyc'           => \App\Filters\KycFilter::class,
     ];
 
     /**
@@ -29,13 +30,24 @@ class Filters extends BaseConfig
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            'honeypot',
+            'csrf',
+            'invalidchars',
             'session' => ['except' => [
-                '/', // home page
-                'login*', // login page
-                'register', // register page
+                '/',
+                'login*',
+                'register',
+                'auth/a/*'
+            ]],
+            'kyc' => ['except' => [
+                'kyc',
+                'kyc/submit',
+                'kyc/await',
+                'kyc/*',
+                'login',
+                'logout',
+                'login*',
+                'register',
                 'auth/a/*'
             ]],
         ],
