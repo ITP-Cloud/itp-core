@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ITP Cloud | Register</title>
+  <title>Register | ITP Cloud</title>
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon.png">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/css/styles.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
