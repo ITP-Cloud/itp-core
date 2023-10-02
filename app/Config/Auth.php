@@ -36,7 +36,7 @@ class Auth extends ShieldAuth
         'action_email_2fa_verify'     => '\CodeIgniter\Shield\Views\email_2fa_verify',
         'action_email_2fa_email'      => '\CodeIgniter\Shield\Views\Email\email_2fa_email',
         'action_email_activate_show'  => 'App\Views\auth\email_activate_show',
-        'action_email_activate_email' => '\App\Views\auth\email\email_activate_email',
+        'action_email_activate_email' => '\App\Views\auth\emails\email_activate_email',
         'magic-link-login'            => '\CodeIgniter\Shield\Views\magic_link_form',
         'magic-link-message'          => '\CodeIgniter\Shield\Views\magic_link_message',
         'magic-link-email'            => '\CodeIgniter\Shield\Views\Email\magic_link_email',
@@ -87,8 +87,8 @@ class Auth extends ShieldAuth
      * to apply any logic you may need.
      */
     public array $redirects = [
-        'register'    => '/',
-        'login'       => '/',
+        'register'    => '/kyc',
+        'login'       => '/console',
         'logout'      => 'login',
         'force_reset' => '/',
     ];

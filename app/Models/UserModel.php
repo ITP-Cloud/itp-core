@@ -17,6 +17,8 @@ class UserModel extends ModelsUserModel
         'student_id_document',
         'portrait_holding_id',
         'institution',
-        'account_status'
+        'account_status',
+        'active',
+        'last_active'
     ];
 }
