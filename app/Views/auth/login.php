@@ -33,12 +33,27 @@
 
           <div class="col-md-6">
 
-            <div class="m-4 w-75 mx-auto">
+            <div class="mt-7 w-75 mx-auto pt-4">
               <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
                 <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" width="180" alt="" />
               </a>
               <!-- <p class="text-center">Buid Your Imagination</p> -->
               <h3 class="text-center">Log In</h3>
+
+              <?php if (session('error') !== null) : ?>
+                <div class="alert alert-danger" role="alert"><?= session('error') ?></div>
+              <?php elseif (session('errors') !== null) : ?>
+                <div class="alert alert-danger" role="alert">
+                  <?php if (is_array(session('errors'))) : ?>
+                    <?php foreach (session('errors') as $error) : ?>
+                      <?= $error ?>
+                      <br>
+                    <?php endforeach ?>
+                  <?php else : ?>
+                    <?= session('errors') ?>
+                  <?php endif ?>
+                </div>
+              <?php endif ?>
 
               <?= form_open('login') ?>
               <div class="mb-3">
