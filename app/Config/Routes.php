@@ -45,6 +45,12 @@ $routes->group('console', ['namespace' => 'App\Controllers\DevConsole'], static 
   });
 });
 
+$routes->group('kyc', ['namespace' => 'App\Controllers'], static function ($routes) {
+  $routes->get('/', 'KycController::showKyc');
+  $routes->post('/', 'KycController::submitKycInfo');
+  $routes->get('await', 'KycController::showAwaitingKycVerification');
+});
+
 $routes->get('login', 'Auth\LoginController::loginView');
 $routes->get('register', 'Auth\RegisterController::registerView');
 
