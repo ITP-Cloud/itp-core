@@ -35,8 +35,7 @@
 
             <div class="m-4 w-75 mx-auto">
               <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                <img src="<?= base_url() ?>/assets/images/logos/logo.png" width="120" alt="">
-                <h2 class="mt-3">ITP Cloud</h2>
+                <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" width="180" alt="" />
               </a>
               <!-- <p class="text-center">Buid Your Imagination</p> -->
               <h3 class="text-center">Log In</h3>
