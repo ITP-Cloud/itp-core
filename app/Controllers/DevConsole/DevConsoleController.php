@@ -15,7 +15,7 @@ class DevConsoleController extends BaseController
 
     public function index()
     {
-        $this->data['page'] = 'home';
+        $this->data['page'] = 'console_home';
         $this->data['title'] = 'Developer Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
 

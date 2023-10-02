@@ -15,7 +15,13 @@ class DatabaseManagementController extends BaseController
 
     public function getDatabases()
     {
-        //
+        $this->data['page'] = 'databases';
+        $this->data['title'] = 'Developer Console | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+
+        return view('dev_console/header', $this->data) .
+            view('dev_console/databases/index') .
+            view('dev_console/footer');
     }
 
     public function newDatabase()

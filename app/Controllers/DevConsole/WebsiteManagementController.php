@@ -15,7 +15,13 @@ class WebsiteManagementController extends BaseController
 
     public function getWebsites()
     {
-        //
+        $this->data['page'] = 'websites';
+        $this->data['title'] = 'Developer Console | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+
+        return view('dev_console/header', $this->data) .
+            view('dev_console/websites/index') .
+            view('dev_console/footer');
     }
 
     public function getWebsite()
