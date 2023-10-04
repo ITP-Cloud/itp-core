@@ -25,13 +25,13 @@
 
         <div class="row justify-content-between w-100">
 
-          <div class="col-md-6 border-end d-none d-md-block h-100">
+          <div class="col-md-6 d-none d-md-block h-100">
             <div class="mt-4 my-auto">
               <img src="<?= base_url() ?>/fassets/img/kyc.jpg" style="width: 90%;" alt="">
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6 border-start">
 
             <div class="m-4 w-75 mx-auto">
               <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">

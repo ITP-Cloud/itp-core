@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login | ITP Cloud</title>
+  <title>Await Verification | ITP Cloud</title>
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon.png">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/css/styles.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,42 +27,22 @@
 
           <div class="col-md-6 border-end d-none d-md-block">
             <div class="mt-4">
-              <img src="<?= base_url() ?>/assets/images/Tablet login-pana (1).png" style="width: 90%;" alt="">
+              <img src="<?= base_url() ?>/fassets/img/kyc_await.png" style="width: 90%;" alt="">
             </div>
           </div>
 
           <div class="col-md-6">
 
-            <div class="m-4 w-75 mx-auto">
-              <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
+            <div class="m-4 w-75 mx-auto align-items-center text-center">
+              <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block pt-5 w-100">
                 <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" width="180" alt="" />
               </a>
               <!-- <p class="text-center">Buid Your Imagination</p> -->
-              <h3 class="text-center">Log In</h3>
+              <h3 class="py-5 ">Awaiting <span class="text-primary">Verification</span></h3>
 
-              <?= form_open('login') ?>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              </div>
-              <div class="mb-4">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-              </div>
-              <div class="d-flex align-items-center justify-content-between mb-4">
-                <div class="form-check">
-                  <input class="form-check-input primary" type="checkbox" name="remember" value="" id="flexCheckChecked" checked>
-                  <label class="form-check-label text-dark" for="flexCheckChecked">
-                    Remeber this Device
-                  </label>
-                </div>
-                <span class="d-block text-end">Forgot your password? <a href="<?= base_url('login/magic-link') ?>">Use a Login Link</a></span>
-              </div>
-              <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Log In</button>
-              <div class="d-flex align-items-center justify-content-center">
-                <p class="text-center">Need an account? <a href="<?= base_url('register') ?>">Register</a></p>
-              </div>
-              <?= form_close() ?>
+              <p class="lead">We've received your details and are currently reviewing them. You'll be notified by email when we are done 🙂</p>
+
+              <a class="btn btn-primary mt-4" href="<?= base_url('logout') ?>">Logout for now</a>
             </div>
 
           </div>
