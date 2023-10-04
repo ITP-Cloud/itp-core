@@ -25,12 +25,15 @@ class KycFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (auth()->user()->account_status == 'under_review') {
-            return redirect()->to('/kyc/await');
-        }
+        // This filter only targets users in the user group
+        if (auth()->user()->inGroup('user') && auth()->loggedIn()) {
+            if (auth()->user()->account_status == 'under_review') {
+                return redirect()->to('/kyc/await');
+            }
 
-        if (auth()->user()->account_status == 'pending') {
-            return redirect()->to('/kyc');
+            if (auth()->user()->account_status == 'pending') {
+                return redirect()->to('/kyc');
+            }
         }
     }
 

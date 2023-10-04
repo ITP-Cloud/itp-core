@@ -9,41 +9,45 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('about', 'Home::about');
 
-$routes->group('console', ['namespace' => 'App\Controllers\DevConsole'], static function ($routes) {
+$routes->group(
+  'console',
+  ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'],
+  static function ($routes) {
 
-  $routes->get('/', 'DevConsoleController::index');
+    $routes->get('/', 'DevConsoleController::index');
 
-  $routes->group('databases', static function ($routes) {
-    $routes->get('/', 'DatabaseManagementController::getDatabases');
+    $routes->group('databases', ['filter' => 'group:user'], static function ($routes) {
+      $routes->get('/', 'DatabaseManagementController::getDatabases');
 
-    $routes->get('new', 'DatabaseManagementController::newDatabase');
-    $routes->post('new', 'DatabaseManagementController::newDatabaseAJAX'); // AJAX oriented route
+      $routes->get('new', 'DatabaseManagementController::newDatabase');
+      $routes->post('new', 'DatabaseManagementController::newDatabaseAJAX'); // AJAX oriented route
 
-    $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
-    $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabaseAJAX/$1'); // AJAX oriented route
+      $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
+      $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabaseAJAX/$1'); // AJAX oriented route
 
-    $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
-  });
+      $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
+    });
 
-  $routes->group('websites', static function ($routes) {
-    $routes->get('/', 'WebsiteManagementController::getWebsites');
-    $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
+    $routes->group('websites', ['filter' => 'group:user'], static function ($routes) {
+      $routes->get('/', 'WebsiteManagementController::getWebsites');
+      $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
 
-    $routes->get('new', 'WebsiteManagementController::newWebsite');
-    $routes->post('new', 'WebsiteManagementController::newWebsiteAJAX'); // AJAX oriented route
+      $routes->get('new', 'WebsiteManagementController::newWebsite');
+      $routes->post('new', 'WebsiteManagementController::newWebsiteAJAX'); // AJAX oriented route
 
-    $routes->get('edit/(:num)', 'WebsiteManagementController::editWebsite/$1');
-    $routes->post('edit/(:num)', 'WebsiteManagementController::editWebsiteAJAX/$1'); // AJAX oriented route
+      $routes->get('edit/(:num)', 'WebsiteManagementController::editWebsite/$1');
+      $routes->post('edit/(:num)', 'WebsiteManagementController::editWebsiteAJAX/$1'); // AJAX oriented route
 
-    $routes->match(['get', 'post'], 'delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1');
-    $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsiteAJAX/$1'); // AJAX oriented route
-  });
+      $routes->match(['get', 'post'], 'delete/(:num)', 'WebsiteManagementController::deleteWebsite/$1');
+      $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsiteAJAX/$1'); // AJAX oriented route
+    });
 
-  $routes->group('file-management', static function ($routes) {
-    $routes->get('/', 'FileManagementController::getManagers');
-    $routes->get('file-browser', 'FileManagementController::getFileBrowser');
-  });
-});
+    $routes->group('file-management', ['filter' => 'group:user'], static function ($routes) {
+      $routes->get('/', 'FileManagementController::getManagers');
+      $routes->get('file-browser', 'FileManagementController::getFileBrowser');
+    });
+  }
+);
 
 $routes->group('kyc', ['namespace' => 'App\Controllers\Auth'], static function ($routes) {
   $routes->get('/', 'KycController::showKyc');
@@ -51,25 +55,30 @@ $routes->group('kyc', ['namespace' => 'App\Controllers\Auth'], static function (
   $routes->get('await', 'KycController::showAwaitingKycVerification');
 });
 
-$routes->group('moderator-console', ['namespace' => 'App\Controllers\ModeratorConsole'], static function ($routes) {
-  $routes->get('/', 'ModeratorDashboardController::index');
-  $routes->get('websites', 'ModeratorDashboardController::getWebsites');
-  $routes->get('website', 'ModeratorDashboardController::getWebsite/$1');
+$routes->group(
+  'moderator-console',
+  ['namespace' => 'App\Controllers\ModeratorConsole', 'filter' => 'group:superadmin'],
+  static function ($routes) {
 
-  $routes->get('databases', 'ModeratorDashboardController::getDatabases');
-  $routes->get('database/(:num)', 'ModeratorDashboardController::getDatabase/$1');
+    $routes->get('/', 'ModeratorDashboardController::index');
+    $routes->get('websites', 'ModeratorDashboardController::getWebsites');
+    $routes->get('website', 'ModeratorDashboardController::getWebsite/$1');
 
-  $routes->group('user-management', static function ($routes) {
-    $routes->get('/', 'UserManagementController::getUsers');
-    $routes->get('user/(:num)', 'UserManagementController::getUser/$1');
+    $routes->get('databases', 'ModeratorDashboardController::getDatabases');
+    $routes->get('database/(:num)', 'ModeratorDashboardController::getDatabase/$1');
 
-    $routes->get('kyc', 'UserManagementController::getKyc');
-    $routes->get('kyc/(:num)', 'UserManagementController::getPendingKycUserDetails/$1');
+    $routes->group('user-management', ['filter' => 'group:superadmin'], static function ($routes) {
+      $routes->get('/', 'UserManagementController::getUsers');
+      $routes->get('user/(:num)', 'UserManagementController::getUser/$1');
 
-    $routes->get('approve/(:num)', 'UserManagementController::approveUser/$1');
-    $routes->get('reject/(:num)', 'UserManagementController::rejectUser/$1');
-  });
-});
+      $routes->get('kyc', 'UserManagementController::getKycApprovals');
+      $routes->get('kyc/(:num)', 'UserManagementController::getKycUserDetails/$1');
+
+      $routes->get('approve/(:num)', 'UserManagementController::approveUser/$1');
+      $routes->get('reject/(:num)', 'UserManagementController::rejectUser/$1');
+    });
+  }
+);
 
 $routes->get('login', 'Auth\LoginController::loginView');
 $routes->get('register', 'Auth\RegisterController::registerView');

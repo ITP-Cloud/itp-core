@@ -40,6 +40,9 @@ class Filters extends BaseConfig
                 'auth/a/*'
             ]],
             'kyc' => ['except' => [
+                '/',
+                'docs',
+                'websites',
                 'kyc',
                 'kyc/submit',
                 'kyc/await',
