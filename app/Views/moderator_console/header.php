@@ -36,7 +36,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
             <li class="sidebar-item">
-              <a class="sidebar-link" href="<?= base_url('console') ?>" aria-expanded="false">
+              <a class="sidebar-link <?= $page == 'moderator_console' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('console') ?>" aria-expanded="false">
                 <span>
                   <i class="ti ti-home-dot"></i>
                 </span>
@@ -48,7 +48,7 @@
               <span class="hide-menu">Resource Management</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link <?= $page == 'websites' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('console/websites') ?>" aria-expanded="false">
+              <a class="sidebar-link <?= $page == 'websites' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('moderator-console/websites') ?>" aria-expanded="false">
                 <span>
                   <i class="ti ti-brand-html5"></i>
                 </span>
@@ -56,7 +56,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link <?= $page == 'databases' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('console/databases') ?>" aria-expanded="false">
+              <a class="sidebar-link <?= $page == 'databases' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('moderator-console/databases') ?>" aria-expanded="false">
                 <span>
                   <i class="ti ti-database"></i>
                 </span>
@@ -70,7 +70,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link <?= $page == 'kyc' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('moderator-console/user-management/kyc') ?>" aria-expanded="false">
                 <span>
-                  <i class="ti ti-database"></i>
+                  <i class="ti ti-search"></i>
                 </span>
                 <span class="hide-menu">KYC</span>
               </a>
@@ -79,7 +79,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link <?= $page == 'users' ? 'border-bottom border-primary border-2' : '' ?>" href="<?= base_url('moderator-console/user-management') ?>" aria-expanded="false">
                 <span>
-                  <i class="ti ti-database"></i>
+                  <i class="ti ti-users"></i>
                 </span>
                 <span class="hide-menu">Users</span>
               </a>
