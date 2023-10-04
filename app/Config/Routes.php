@@ -45,10 +45,25 @@ $routes->group('console', ['namespace' => 'App\Controllers\DevConsole'], static 
   });
 });
 
-$routes->group('kyc', ['namespace' => 'App\Controllers'], static function ($routes) {
+$routes->group('kyc', ['namespace' => 'App\Controllers\Auth'], static function ($routes) {
   $routes->get('/', 'KycController::showKyc');
-  $routes->post('/', 'KycController::submitKycInfo');
+  $routes->post('submit', 'KycController::submitKycInfo');
   $routes->get('await', 'KycController::showAwaitingKycVerification');
+});
+
+$routes->group('moderator-console', ['namespace' => 'App\Controllers\ModeratorConsole'], static function ($routes) {
+  $routes->get('/', 'ModeratorDashboardController::index');
+
+  $routes->group('user-management', static function ($routes) {
+    $routes->get('/', 'UserManagementController::getUsers');
+    $routes->get('user/(:num)', 'UserManagementController::getUser/$1');
+
+    $routes->get('kyc', 'UserManagementController::getKyc');
+    $routes->get('kyc/(:num)', 'UserManagementController::getPendingKycUserDetails/$1');
+
+    $routes->get('approve/(:num)', 'UserManagementController::approveUser/$1');
+    $routes->get('reject/(:num)', 'UserManagementController::rejectUser/$1');
+  });
 });
 
 $routes->get('login', 'Auth\LoginController::loginView');
