@@ -15,6 +15,10 @@ class KycController extends BaseController
 
     public function showKyc()
     {
+        if (auth()->user()->account_status == 'under_review') {
+            return redirect()->to('/kyc/await');
+        }
+
         $this->data['page'] = 'kyc';
         $this->data['title'] = 'KYC | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
@@ -85,7 +89,7 @@ class KycController extends BaseController
         $user->institution = $this->request->getPost('institution');
         $user->country = $this->request->getPost('country');
         $user->avatar = $portrait_name;
-        $user->account_status = 'under review';
+        $user->account_status = 'under_review';
 
         $users = auth()->getProvider();
         $users->save($user);

@@ -26,7 +26,13 @@ class WebsiteManagementController extends BaseController
 
     public function getWebsite()
     {
-        //
+        $this->data['page'] = 'websites';
+        $this->data['title'] = 'Developer Console | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+
+        return view('dev_console/header', $this->data) .
+            view('dev_console/websites/index') .
+            view('dev_console/footer');
     }
 
     public function newWebsite()
@@ -41,7 +47,13 @@ class WebsiteManagementController extends BaseController
 
     public function editWebsite()
     {
-        //
+        $this->data['page'] = 'websites';
+        $this->data['title'] = 'Developer Console | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+
+        return view('dev_console/header', $this->data) .
+            view('dev_console/websites/edit_website') .
+            view('dev_console/footer');
     }
 
     public function editWebsiteAJAX()
@@ -51,7 +63,13 @@ class WebsiteManagementController extends BaseController
 
     public function deleteWebsite()
     {
-        //
+        $this->data['page'] = 'websites';
+        $this->data['title'] = 'Developer Console | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+
+        return view('dev_console/header', $this->data) .
+            view('dev_console/websites/delete_website') .
+            view('dev_console/footer');
     }
 
     public function deleteWebsiteAJAX()

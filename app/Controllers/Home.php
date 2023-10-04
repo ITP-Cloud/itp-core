@@ -13,8 +13,16 @@ class Home extends BaseController
         $this->data = [];
     }
 
-    public function index(): string
+    public function index()
     {
+        if (auth()->loggedIn()) {
+            if (auth()->user()->inGroup('superadmin')) {
+                return redirect()->to('moderator-console');
+            } else {
+                return redirect()->to('console');
+            }
+        }
+
         $this->data['page'] = 'home';
         $this->data['title'] = 'ITP Cloud | Official Homepage';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';

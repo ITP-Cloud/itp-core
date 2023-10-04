@@ -88,7 +88,7 @@ class Auth extends ShieldAuth
      */
     public array $redirects = [
         'register'    => '/kyc',
-        'login'       => '/console',
+        'login'       => '/',
         'logout'      => 'login',
         'force_reset' => '/',
     ];
