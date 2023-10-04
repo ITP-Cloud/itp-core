@@ -53,6 +53,11 @@ $routes->group('kyc', ['namespace' => 'App\Controllers\Auth'], static function (
 
 $routes->group('moderator-console', ['namespace' => 'App\Controllers\ModeratorConsole'], static function ($routes) {
   $routes->get('/', 'ModeratorDashboardController::index');
+  $routes->get('websites', 'ModeratorDashboardController::getWebsites');
+  $routes->get('website', 'ModeratorDashboardController::getWebsite/$1');
+
+  $routes->get('databases', 'ModeratorDashboardController::getDatabases');
+  $routes->get('database/(:num)', 'ModeratorDashboardController::getDatabase/$1');
 
   $routes->group('user-management', static function ($routes) {
     $routes->get('/', 'UserManagementController::getUsers');
