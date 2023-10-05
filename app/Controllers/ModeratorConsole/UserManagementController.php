@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\ModeratorConsole;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
@@ -16,7 +16,7 @@ class UserManagementController extends BaseController
 
     public function getUsers()
     {
-        $this->data['page'] = 'moderator_console';
+        $this->data['page'] = 'users';
         $this->data['title'] = 'Moderator Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
         $this->data['users'] = (new UserModel())->findAll();
@@ -28,7 +28,7 @@ class UserManagementController extends BaseController
 
     public function getUser(int $user_id = 0)
     {
-        $this->data['page'] = 'moderator_console';
+        $this->data['page'] = 'users';
         $this->data['title'] = 'Moderator Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
         $this->data['user'] = (new UserModel())->find($user_id);
@@ -40,7 +40,7 @@ class UserManagementController extends BaseController
 
     public function getKycApprovals()
     {
-        $this->data['page'] = 'moderator_console';
+        $this->data['page'] = 'kyc';
         $this->data['title'] = 'Moderator Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
         $this->data['users'] = (new UserModel())->where('account_status', 'under_review')->findAll();
@@ -52,7 +52,7 @@ class UserManagementController extends BaseController
 
     public function getKycUserDetails(int $user_id = 0)
     {
-        $this->data['page'] = 'moderator_console';
+        $this->data['page'] = 'kyc';
         $this->data['title'] = 'Moderator Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
         $this->data['user'] = (new UserModel())->where('account_status', 'under_review')->find($user_id);
