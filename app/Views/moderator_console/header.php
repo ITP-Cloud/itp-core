@@ -111,9 +111,11 @@
 
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <?php // base_url('/assets/uploads/' . auth()->user()->avatar) 
-                  ?>
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                  <?php if (auth()->user()->avatar == '') : ?>
+                    <img src="<?= base_url() ?>/fassets/img/avatar-person.svg" alt="" width="35" height="35" class="rounded-circle">
+                  <?php else : ?>
+                    <img src="<?= base_url('assets/uploads/' . auth()->user()->avatar) ?>" alt="" width="35" height="35" class="rounded-circle">
+                  <?php endif ?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body p-2">
