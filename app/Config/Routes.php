@@ -67,7 +67,7 @@ $routes->group(
     $routes->get('databases', 'ModeratorDashboardController::getDatabases');
     $routes->get('database/(:num)', 'ModeratorDashboardController::getDatabase/$1');
 
-    $routes->group('user-management', ['filter' => 'group:superadmin'], static function ($routes) {
+    $routes->group('user-management', ['namespace' => 'App\Controllers\ModeratorConsole', 'filter' => 'group:superadmin'], static function ($routes) {
       $routes->get('/', 'UserManagementController::getUsers');
       $routes->get('user/(:num)', 'UserManagementController::getUser/$1');
 

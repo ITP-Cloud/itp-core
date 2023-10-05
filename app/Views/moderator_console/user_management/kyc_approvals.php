@@ -3,7 +3,7 @@
     <h2>KYC <span class="text-primary">Approvals</span></h2>
   </div>
   <div>
-    <p class="text-muted">Manage all <span class="text-primary">databases</span> here.</p>
+    <p class="text-muted">Manage all <span class="text-primary">KYC</span> approvals here.</p>
   </div>
   <div class="card w-100">
     <div class="card-body p-4">
