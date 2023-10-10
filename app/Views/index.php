@@ -5,17 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-  <!-- ===============================================-->
-  <!--    Document Title-->
-  <!-- ===============================================-->
-  <title>Productly | Design Agency Landing Page UI</title>
-
-
-  <!-- ===============================================-->
-  <!--    Favicons-->
-  <!-- ===============================================-->
+  <title>ITP Cloud | Official Homepage</title>
   <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/fassets/img/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/fassets/img/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/fassets/img/favicons/favicon-16x16.png">
@@ -70,8 +60,13 @@
         <div class="row align-items-center">
           <div class="col-md-6 text-md-start text-center py-6">
             <h1 class="mb-4 fs-9 fw-bold">Build Your <span class="text-primary">Imagination</span></h1>
-            <p class="mb-6 lead text-secondary">Tools tutorials, design and innovation experts, all<br class="d-none d-xl-block" />in one place! The most intuitive way to imagine<br class="d-none d-xl-block" />your next user experience.</p>
-            <div class="text-center text-md-start"><a class="btn btn-primary me-3 btn-lg" href="#!" role="button">Get started</a><a class="btn btn-link text-primary fw-medium" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo"><span class="fas fa-play me-2"></span>Watch the video </a></div>
+            <p class="mb-6 lead text-secondary">Tools, engineering and innovation, all<br class="d-none d-xl-block" />in one place! The most intuitive way to build<br class="d-none d-xl-block" />your imagination.</p>
+            <div class="text-center text-md-start">
+              <a class="btn btn-primary me-3 btn-lg" href="<?= base_url('login') ?>" role="button">Get started</a>
+              <a class="btn btn-link text-primary fw-medium" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo">
+                <span class="fas fa-play me-2"></span> Watch the video
+              </a>
+            </div>
           </div>
           <div class="col-md-6 text-end">
             <lottie-player autoplay loop mode="normal" src="<?= base_url() ?>/fassets/img/lottie/Build Your Imagination.json" style="width: 100%">
@@ -81,9 +76,6 @@
       </div>
     </section>
 
-
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
     <section class="pt-5 pt-md-9 mb-6" id="feature">
 
       <div class="bg-holder z-index--1 bottom-0 d-none d-lg-block" style="background-image:url(<?= base_url() ?>/fassets/img/category/shape.png);opacity:.5;">
