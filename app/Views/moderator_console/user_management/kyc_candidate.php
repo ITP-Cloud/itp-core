@@ -79,7 +79,7 @@
           <label class="form-label" for="">Password</label>
           <input type="hidden" name="csrf_token_name" value="<?= csrf_hash() ?>">
           <input type="hidden" name="user_id" value="<?= $user->id ?>">
-          <input class="form-control fs-3" type="password" placeholder="Password..." required>
+          <input class="form-control fs-3" name="password" type="password" placeholder="Password..." required>
         </div>
       </div>
       <div class="mb-4">
@@ -127,27 +127,33 @@
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        if (data.error == true) {
+        if (data.success == false) {
           approveUserBtn.classList.remove('d-none');
           approveUserLoadingBtn.classList.add('d-none');
 
           let trail = outputLog.innerHTML;
 
-          outputLog.innerHTML = '$ ~ Session Output: <br>'
+          outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
           outputLog.innerHTML += data.message;
           outputLog.innerHTML += '<br>';
           outputLog.innerHTML += trail;
         } else {
           approveUserBtn.classList.remove('d-none');
-          approveUserBtn.disabled = true;
+          approveUserBtn.classList.add('disabled');
+          approveUserBtn.innerHTML = 'Approved';
           approveUserLoadingBtn.classList.add('d-none');
 
           let trail = outputLog.innerHTML;
 
-          outputLog.innerHTML = '$ ~ Session Output: <br>'
+          outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
           outputLog.innerHTML += data.message;
           outputLog.innerHTML += '<br>';
+          outputLog.innerHTML += "Redirecting to user's page in 4s...";
           outputLog.innerHTML += trail;
+
+          setTimeout(() => {
+            window.location.href = '<?= base_url('moderator-console/user-management/user/' . $user->id) ?>';
+          }, 4000);
         }
       })
       .catch(error => {
@@ -156,7 +162,7 @@
 
         let trail = outputLog.innerHTML;
 
-        outputLog.innerHTML = '$ ~ Session Output: <br>'
+        outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
         outputLog.innerHTML += data.message;
         outputLog.innerHTML += '<br>';
         outputLog.innerHTML += trail;
