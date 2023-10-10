@@ -4,6 +4,8 @@ namespace App\Controllers\ModeratorConsole;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 use ReallySimpleJWT\Token;
 
 class UserManagementController extends BaseController
@@ -66,14 +68,53 @@ class UserManagementController extends BaseController
     public function approveUser()
     {
         if ($this->request->getPost()) {
-            $user_id = (int) $this->request->getPost('user_id');
 
+            // Verify Moderator Password
+            $credentials = [
+                'email'    => auth()->user()->email,
+                'password' => $this->request->getPost('password')
+            ];
+
+            $validCreds = auth()->check($credentials);
+
+            if (!$validCreds->isOK()) {
+                return Services::response()
+                    ->setJSON(
+                        [
+                            'success' => false,
+                            'message' => 'Log: The password is <span class="text-danger">Incorrect</span> 😬. Please try again.<br> Timestamp: ' . date('H:i') . ' hrs.'
+                        ]
+                    )
+                    ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+            }
+
+            // Approve User Registration
+            $user_id           = (int) $this->request->getPost('user_id');
             $secureUserPayload = $this->generateSecureUserPayloadForUser($user_id);
+
+            return Services::response()
+                ->setJSON(
+                    [
+                        'success' => true,
+                        'message' => 'Log: User <span class="text-success">account successfully created</span>. The corresponding system accounts have been initialized too.<br> Timestamp: ' . date('H:i') . ' hrs.',
+                        'secureUserPayload' => Token::getPayload($secureUserPayload),
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+            die();
+
+            $db = \Config\Database::connect();
+            $db->transStart();
 
             $users = auth()->getProvider();
             $user = $users->findById($user_id);
-            $user->username = $secureUserPayload;
+            $user->fill([
+                'account_status' => 'active',
+                'username' => $secureUserPayload,
+            ]);
             $users->save($user);
+
+            $db->transComplete();
         } else {
             return redirect()->back();
         }
