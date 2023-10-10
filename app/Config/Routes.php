@@ -74,8 +74,8 @@ $routes->group(
       $routes->get('kyc', 'UserManagementController::getKycApprovals');
       $routes->get('kyc/(:num)', 'UserManagementController::getKycUserDetails/$1');
 
-      $routes->get('approve/(:num)', 'UserManagementController::approveUser/$1');
-      $routes->get('reject/(:num)', 'UserManagementController::rejectUser/$1');
+      $routes->post('approve', 'UserManagementController::approveUser');
+      $routes->post('reject', 'UserManagementController::rejectUser');
     });
   }
 );
