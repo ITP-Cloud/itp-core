@@ -58,8 +58,108 @@
   <div class="card card-body w-75 mx-auto text-center">
     <h4 class="mb-4">Approve or Reject KYC</h4>
     <div class="d-flex">
-      <button type="button" class="btn btn-success w-50">Approve</button>
+      <button class="btn btn-success w-50" type="button" data-bs-toggle="offcanvas" data-bs-target="#approveUser" aria-controls="approveUser">
+        Approve
+      </button>
       <button type="button" class="btn btn-danger w-50 ms-2">Reject</button>
     </div>
   </div>
 </div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="approveUser" aria-labelledby="approveUserLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="approveUserLabel"><span class="text-success">Approve</span> User</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form id="approveUserForm">
+      <div class="mb-4">
+        <p>You are about to approve <?= $user->firstname . ' ' . $user->lastname ?> to be a verified ITP Cloud user. This will trigger the ITP Engine to allocate a system account, database account and an ftp account.</p>
+        <div>
+          <label class="form-label" for="">Password</label>
+          <input type="hidden" name="csrf_token_name" value="<?= csrf_hash() ?>">
+          <input type="hidden" name="user_id" value="<?= $user->id ?>">
+          <input class="form-control fs-3" type="password" placeholder="Password..." required>
+        </div>
+      </div>
+      <div class="mb-4">
+        <button class="btn btn-success w-100" id="approveUserBtn">
+          Approve
+        </button>
+
+        <button class="btn btn-success w-100 d-none" type="button" id="approveUserLoadingBtn" disabled>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span role="status">Loading...</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="card">
+      <div class="card-header">
+        Output Log
+      </div>
+      <div class="card-body bg-dark">
+        <code class="text-light" id="outputLog">
+        </code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const approveUserForm = document.querySelector('#approveUserForm');
+  const outputLog = document.querySelector('#outputLog');
+
+  approveUserForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(approveUserForm);
+
+    const approveUserBtn = approveUserForm.querySelector('#approveUserBtn');
+    const approveUserLoadingBtn = approveUserForm.querySelector('#approveUserLoadingBtn');
+
+    approveUserBtn.classList.add('d-none');
+    approveUserLoadingBtn.classList.remove('d-none');
+
+    fetch('<?= base_url('moderator-console/user-management/approve') ?>', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.error == true) {
+          approveUserBtn.classList.remove('d-none');
+          approveUserLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog.innerHTML;
+
+          outputLog.innerHTML = '$ ~ Session Output: <br>'
+          outputLog.innerHTML += data.message;
+          outputLog.innerHTML += '<br>';
+          outputLog.innerHTML += trail;
+        } else {
+          approveUserBtn.classList.remove('d-none');
+          approveUserBtn.disabled = true;
+          approveUserLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog.innerHTML;
+
+          outputLog.innerHTML = '$ ~ Session Output: <br>'
+          outputLog.innerHTML += data.message;
+          outputLog.innerHTML += '<br>';
+          outputLog.innerHTML += trail;
+        }
+      })
+      .catch(error => {
+        approveUserBtn.classList.add('d-none');
+        approveUserLoadingBtn.classList.remove('d-none');
+
+        let trail = outputLog.innerHTML;
+
+        outputLog.innerHTML = '$ ~ Session Output: <br>'
+        outputLog.innerHTML += data.message;
+        outputLog.innerHTML += '<br>';
+        outputLog.innerHTML += trail;
+      });
+  });
+</script>
