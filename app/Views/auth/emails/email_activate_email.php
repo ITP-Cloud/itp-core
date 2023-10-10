@@ -27,13 +27,13 @@
               <h3>Activation Code • <?= $code ?></h3>
             </div>
 
-            <div style="padding-bottom: 30px">If you did not request a login link, no further action is required. You can safely disregard this email. </div>
+            <div style="padding-bottom: 30px">If you did not initiate this email, no further action is required. You can safely disregard this email. </div>
             <!--end:Email content-->
             <div style="padding-bottom: 10px">Kind regards,
               <br>The ITP Cloud Team 😎
       <tr>
         <td align="center" valign="center" style="font-size: 13px; text-align:center;padding: 20px; color: #6d6e7c;">
-          <p>Kitwe, Zambia.</p>
+          <p>Kalewa Rd, Ndola, Zambia.</p>
           <p>Copyright &copy;
             <a href="<?= base_url() ?>" rel="noopener" target="_blank">ITP Cloud</a>.
           </p>
