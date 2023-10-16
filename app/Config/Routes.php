@@ -16,7 +16,7 @@ $routes->group(
 
     $routes->get('/', 'DevConsoleController::index');
 
-    $routes->group('databases', ['filter' => 'group:user'], static function ($routes) {
+    $routes->group('databases', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
       $routes->get('/', 'DatabaseManagementController::getDatabases');
 
       $routes->get('new', 'DatabaseManagementController::newDatabase');
@@ -28,7 +28,7 @@ $routes->group(
       $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
 
-    $routes->group('websites', ['filter' => 'group:user'], static function ($routes) {
+    $routes->group('websites', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
       $routes->get('/', 'WebsiteManagementController::getWebsites');
       $routes->get('website/(:num)', 'WebsiteManagementController::getWebsite/$1');
 
@@ -42,7 +42,7 @@ $routes->group(
       $routes->post('delete/(:num)', 'WebsiteManagementController::deleteWebsiteAJAX/$1'); // AJAX oriented route
     });
 
-    $routes->group('file-management', ['filter' => 'group:user'], static function ($routes) {
+    $routes->group('file-management', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
       $routes->get('/', 'FileManagementController::getManagers');
       $routes->get('file-browser', 'FileManagementController::getFileBrowser');
     });
