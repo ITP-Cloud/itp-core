@@ -16,6 +16,7 @@ class ManagedWebsiteModel extends Model
     protected $allowedFields    = [
         'developer_id',
         'md_ws_name',
+        'md_ws_logo',
         'md_ws_description',
         'md_ws_type',
         'md_ws_tech_stack',
