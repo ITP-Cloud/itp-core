@@ -24,6 +24,7 @@ class WebsiteManagementController extends BaseController
         $this->data['page'] = 'websites';
         $this->data['title'] = 'Developer Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+        $this->data['websites'] = $this->managedWebsiteModel->where('developer_id', auth()->user()->id)->findAll();
 
         return view('dev_console/header', $this->data) .
             view('dev_console/websites/index') .
