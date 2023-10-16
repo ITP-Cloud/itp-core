@@ -31,4 +31,17 @@ class ManagedWebsiteModel extends Model
     protected $createdField  = 'md_ws_created_at';
     protected $updatedField  = 'md_ws_updated_at';
     protected $deletedField  = 'md_ws_deleted_at';
+
+    function isNameTaken(string $website_name = ''): bool
+    {
+        $count = $this
+            ->where('md_ws_name', $website_name)
+            ->countAllResults();
+
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
