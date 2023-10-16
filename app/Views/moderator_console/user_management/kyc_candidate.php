@@ -109,13 +109,12 @@
 <script>
   const approveUserForm = document.querySelector('#approveUserForm');
   const outputLog = document.querySelector('#outputLog');
+  const approveUserBtn = approveUserForm.querySelector('#approveUserBtn');
+  const approveUserLoadingBtn = approveUserForm.querySelector('#approveUserLoadingBtn');
 
   approveUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(approveUserForm);
-
-    const approveUserBtn = approveUserForm.querySelector('#approveUserBtn');
-    const approveUserLoadingBtn = approveUserForm.querySelector('#approveUserLoadingBtn');
 
     approveUserBtn.classList.add('d-none');
     approveUserLoadingBtn.classList.remove('d-none');

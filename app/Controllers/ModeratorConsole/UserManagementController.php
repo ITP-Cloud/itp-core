@@ -97,7 +97,6 @@ class UserManagementController extends BaseController
                     [
                         'success' => true,
                         'message' => 'Log: User <span class="text-success">account successfully created</span>. The corresponding system accounts have been initialized too.<br> Timestamp: ' . date('H:i') . ' hrs.',
-                        'secureUserPayload' => Token::getPayload($secureUserPayload),
                     ]
                 )
                 ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
