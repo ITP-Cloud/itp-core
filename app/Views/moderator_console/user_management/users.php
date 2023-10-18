@@ -6,7 +6,8 @@
     <p class="text-muted">Manage all <span class="text-primary">users</span> here.</p>
   </div>
   <div class="card w-100">
-    <div class="card-body p-4">
+    <div class="p-2">
+      <h5 class="card-title fw-semibold m-3">All <span class="text-primary">Users</span></h5>
       <div class="table-responsive">
         <table class="table text-nowrap mb-0 align-middle">
           <thead class="text-dark fs-4">
@@ -22,6 +23,9 @@
               </th>
               <th class="border-bottom-0">
                 <h6 class="fw-semibold mb-0">Email/Phone</h6>
+              </th>
+              <th class="border-bottom-0">
+                <h6 class="fw-semibold mb-0">Status</h6>
               </th>
               <th class="border-bottom-0">
                 <h6 class="fw-semibold mb-0">Action</h6>
@@ -50,6 +54,9 @@
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-1"><?= $user->email ?></h6>
                   <span class="fw-normal"><?= $user->phone ?></span>
+                </td>
+                <td class="border-bottom-0">
+                  <span class="fw-normal"><?= ucwords(str_replace('_', ' ', $user->account_status)) ?></span>
                 </td>
                 <td class="border-bottom-0">
                   <a href="<?= base_url('moderator-console/user-management/user/' . $user->id) ?>" class="btn btn-primary">
