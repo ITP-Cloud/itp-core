@@ -44,4 +44,12 @@ class ManagedWebsiteModel extends Model
             return false;
         }
     }
+
+    public function getAllWebsites()
+    {
+        return
+            $this->select('managed_websites.*, users.firstname, users.lastname')
+            ->join('users', 'managed_websites.developer_id = users.id')
+            ->findAll();
+    }
 }

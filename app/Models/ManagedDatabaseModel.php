@@ -24,4 +24,12 @@ class ManagedDatabaseModel extends Model
     protected $createdField  = 'md_db_created_at';
     protected $updatedField  = 'md_db_updated_at';
     protected $deletedField  = 'md_db_deleted_at';
+
+    public function getAllDatabases()
+    {
+        return
+            $this->select('managed_databases.*, users.firstname, users.lastname')
+            ->join('users', 'managed_databases.developer_id = users.id')
+            ->findAll();
+    }
 }
