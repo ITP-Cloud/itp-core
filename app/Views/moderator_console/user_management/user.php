@@ -11,7 +11,11 @@
   </div>
   <div class="card">
     <div class="card-header text-center">
-      <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="90" height="90" class="rounded-circle mb-2">
+      <?php if (auth()->user()->avatar == '') : ?>
+        <img src="<?= base_url() ?>/fassets/img/avatar-person.svg" alt="" width="90" height="90" class="rounded-circle mb-2">
+      <?php else : ?>
+        <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="90" height="90" class="rounded-circle mb-2">
+      <?php endif ?>
       <h3><span class="text-primary"><?= $user->firstname ?> </span> <?= $user->lastname ?></h3>
       <div>
         Account Status • <span class="badge bg-success rounded-3 fw-semibold"><?= ucwords(str_replace('_', ' ', $user->account_status)) ?></span>
