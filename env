@@ -144,8 +144,10 @@
 
 
 #--------------------------------------------------------------------
-# ITP Engine Settings
+# ITP Platform Settings
 #--------------------------------------------------------------------
 
-userTokenSecret = ''
+# Change the userTokenSecret in production
+userTokenSecret = '8$US9KelBwSkZnTkx6aEx1eQ' 
 engineUrl = 'http://localhost:8001'
+serverUrl = 'http://localhost'
