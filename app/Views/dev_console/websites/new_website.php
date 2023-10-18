@@ -136,9 +136,9 @@
           outputLog.innerHTML += "Redirecting to webistes page in 4s...";
           outputLog.innerHTML += trail;
 
-          // setTimeout(() => {
-          //   window.location.href = '<?= base_url('console/websites') ?>';
-          // }, 4000);
+          setTimeout(() => {
+            window.location.href = '<?= base_url('console/websites') ?>';
+          }, 4000);
         }
       })
       .catch(error => {

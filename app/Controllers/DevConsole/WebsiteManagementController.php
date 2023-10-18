@@ -31,17 +31,6 @@ class WebsiteManagementController extends BaseController
             view('dev_console/footer');
     }
 
-    public function getWebsite()
-    {
-        $this->data['page'] = 'websites';
-        $this->data['title'] = 'Developer Console | ITP Cloud';
-        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
-
-        return view('dev_console/header', $this->data) .
-            view('dev_console/websites/index') .
-            view('dev_console/footer');
-    }
-
     public function newWebsite()
     {
         $this->data['page'] = 'websites';
@@ -139,7 +128,7 @@ class WebsiteManagementController extends BaseController
             return Services::response()
                 ->setJSON(
                     [
-                        'success' => false,
+                        'success' => true,
                         'message' => 'Message: Congratulation 🥳🥳, your website has been provisioned. Head over to the File Management section and deploy your website.<br> Timestamp: ' . date('H:i') . ' hrs.'
                     ]
                 )
@@ -180,8 +169,4 @@ class WebsiteManagementController extends BaseController
     {
         //
     }
-
-    // private function generatePortNumber(): int
-    // {
-    // }
 }

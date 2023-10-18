@@ -28,9 +28,4 @@ class FileManagementController extends BaseController
     {
         //
     }
-
-    public function getFTPInfo()
-    {
-        //
-    }
 }
