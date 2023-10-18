@@ -3,14 +3,19 @@
 namespace App\Controllers\DevConsole;
 
 use App\Controllers\BaseController;
+use App\Models\ManagedDatabaseModel;
+use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 
 class DatabaseManagementController extends BaseController
 {
-    private $data;
+    private array $data;
+    private ManagedDatabaseModel $databaseModel;
 
     public function __construct()
     {
         $this->data = [];
+        $this->databaseModel = new ManagedDatabaseModel();
     }
 
     public function getDatabases()
@@ -26,12 +31,44 @@ class DatabaseManagementController extends BaseController
 
     public function newDatabase()
     {
-        //
-    }
+        if ($this->request->is('post')) {
 
-    public function newDatabaseAJAX()
-    {
-        //
+            // Step 1: Check if database name is taken
+
+            $databaseName = (string) $this->request->getPost('database_name');
+            $isTaken = $this->databaseModel->isNameTaken($databaseName);
+
+            if ($isTaken) {
+                return Services::response()
+                    ->setJSON(
+                        [
+                            'success' => false,
+                            'message' => 'Message: The provided Database Name is taken 😬. Please pick a different one.<br> Timestamp: ' . date('H:i') . ' hrs.'
+                        ]
+                    )
+                    ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+            }
+
+            // Step 2: Index database
+
+            $this->databaseModel->insert([
+                'developer_id' => auth()->user()->id,
+                'md_db_name'   => $databaseName
+            ]);
+
+            // Step 3: Create database on Engine
+
+
+            // Final Step
+            return Services::response()
+                ->setJSON(
+                    [
+                        'success' => true,
+                        'message' => 'Message: Congratulation 🥳🥳, your database has been provisioned.<br> Timestamp: ' . date('H:i') . ' hrs.'
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+        }
     }
 
     public function deleteDatabase()

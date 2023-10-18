@@ -18,14 +18,9 @@ $routes->group(
 
     $routes->group('databases', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
       $routes->get('/', 'DatabaseManagementController::getDatabases');
-
-      $routes->get('new', 'DatabaseManagementController::newDatabase');
-      $routes->post('new', 'DatabaseManagementController::newDatabaseAJAX'); // AJAX oriented route
-
+      $routes->post('new', 'DatabaseManagementController::newDatabase');
       $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
       $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabaseAJAX/$1'); // AJAX oriented route
-
-      $routes->get('phpmyadmin', 'DatabaseManagementController::getPhpMyAdmin');
     });
 
     $routes->group('websites', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
