@@ -25,6 +25,19 @@ class ManagedDatabaseModel extends Model
     protected $updatedField  = 'md_db_updated_at';
     protected $deletedField  = 'md_db_deleted_at';
 
+    function isNameTaken(string $database_name = ''): bool
+    {
+        $count = $this
+            ->where('md_db_name', $database_name)
+            ->countAllResults();
+
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getAllDatabases()
     {
         return
