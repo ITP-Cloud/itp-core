@@ -33,8 +33,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <div>
-              I will not close if you click outside of me.
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <img src="<?= base_url() ?>/assets/images/backgrounds/website-bg.jpg" class="card-img-top rounded-0" alt="...">
+                <div class="bg-primary border border-light border-2 rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
+                  <i class="ti ti-database" style="font-size: 60px;"></i>
+                </div>
+              </div>
+              <div class="card-body pt-3 p-4">
+                <h6 class="fw-semibold fs-4"><?= $database['md_db_name'] ?></h6>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h6 class="fw-light fs-2 mb-0">Owned by <?= $database['firstname'] . ' ' . $database['lastname'] ?></h6>
+                    <h6 class="fw-light fs-2 mb-0">Created on <?= date('d M Y', strtotime($database['md_db_created_at'])) ?></h6>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
