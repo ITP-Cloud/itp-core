@@ -110,7 +110,6 @@ class WebsiteManagementController extends BaseController
                 'md_ws_description' => $this->request->getPost('website_description'),
                 'md_ws_type' => 'developer-site',
                 'md_ws_tech_stack' => $this->request->getPost('website_tech_stack'),
-                'md_ws_port_number' => $previousSiteID + 8004,
                 'md_ws_vhost_identifier' => 'md_ws_' . $websiteName,
                 'md_ws_website_absolute_path' => '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName,
             ]);
