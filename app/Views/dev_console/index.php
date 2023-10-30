@@ -23,7 +23,7 @@
                   document.getElementById('greeting').innerHTML = "Good Evening,"
                 }
               </script>
-              <span class="text-primary"><?= 'Aaron' ?>.</span>
+              <span class="text-primary"><?= auth()->user()->firstname ?>.</span>
             </h1>
 
             <div class="d-flex align-items-center mb-3">
