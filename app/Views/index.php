@@ -6,12 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ITP Cloud | Official Homepage</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/fassets/img/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/fassets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/fassets/img/favicons/favicon-16x16.png">
-  <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/fassets/img/favicons/favicon.png">
-  <link rel="manifest" href="<?= base_url() ?>/fassets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="<?= base_url() ?>/fassets/img/favicons/mstile-150x150.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/favicon.ico">
+  <link rel="manifest" href="<?= base_url() ?>/manifest.json">
+  <meta name="msapplication-TileImage" content="<?= base_url() ?>/mstile-150x150.png">
+
   <meta name="theme-color" content="#ffffff">
   <link href="<?= base_url() ?>/fassets/css/theme.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,7 +86,7 @@
             </div>
             <div class="col-12 col-md-auto">
               <p class="mb-0">
-                Designed and engineered by <a class="text-decoration-none ms-1" href="https://www.linkedin.com/in/aaron-mkandawire-384126212/" target="_blank">Aaron Mkandawire</a></p>
+                Designed and Engineered by <a class="text-decoration-none ms-1" href="https://www.linkedin.com/in/aaron-mkandawire-384126212/" target="_blank">Aaron Mkandawire</a></p>
             </div>
           </div>
         </div>
