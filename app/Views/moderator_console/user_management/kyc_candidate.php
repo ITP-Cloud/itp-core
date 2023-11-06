@@ -11,7 +11,7 @@
   </div>
   <div class="card">
     <div class="card-header text-center">
-      <?php if (auth()->user()->avatar == '') : ?>
+      <?php if ($user->avatar == '') : ?>
         <img src="<?= base_url() ?>/fassets/img/avatar-person.svg" alt="" width="90" height="90" class="rounded-circle mb-2">
       <?php else : ?>
         <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="90" height="90" class="rounded-circle mb-2">
@@ -60,12 +60,17 @@
   </div>
 
   <div class="card card-body w-75 mx-auto text-center">
-    <h4 class="mb-4">Approve or Reject KYC</h4>
-    <div class="d-flex">
-      <button class="btn btn-success w-50" type="button" data-bs-toggle="offcanvas" data-bs-target="#approveUser" aria-controls="approveUser">
+    <h4 class="mb-4">KYC <span class="text-primary">Actions</span></h4>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-success w-25" type="button" data-bs-toggle="offcanvas" data-bs-target="#approveUser" aria-controls="approveUser">
         Approve
       </button>
-      <button type="button" class="btn btn-danger w-50 ms-2">Reject</button>
+      <button class="btn btn-secondary w-25 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#requestResubmitKyc" aria-controls="requestResubmitKyc">
+        Request Resubmit
+      </button>
+      <button class="btn btn-danger w-25 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#rejectUser" aria-controls="rejectUser">
+        Reject
+      </button>
     </div>
   </div>
 </div>
@@ -81,7 +86,7 @@
         <p>You are about to approve <?= $user->firstname . ' ' . $user->lastname ?> to be a verified ITP Cloud user. This will trigger the ITP Engine to allocate a system account, database account and an ftp account.</p>
         <div>
           <label class="form-label" for="">Password</label>
-          <input type="hidden" name="csrf_token_name" value="<?= csrf_hash() ?>">
+          <input type="hidden" name="csrf_token_name" value="<?= $csrf_token ?>">
           <input type="hidden" name="user_id" value="<?= $user->id ?>">
           <input class="form-control fs-3" name="password" type="password" placeholder="Password..." required>
         </div>
@@ -103,7 +108,47 @@
         Output Log
       </div>
       <div class="card-body bg-dark">
-        <code class="text-light" id="outputLog">
+        <code class="text-light" id="outputLog1">
+        </code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="rejectUser" aria-labelledby="rejectUserLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="rejectUserLabel"><span class="text-danger">Reject</span> User</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form id="rejectUserForm">
+      <div class="mb-4">
+        <p>You are about to reject <?= $user->firstname . ' ' . $user->lastname ?> from being a verified ITP Cloud user. We will notify him by email of this action.</p>
+        <div>
+          <label class="form-label" for="">Password</label>
+          <input type="hidden" name="csrf_token_name" value="<?= $csrf_token ?>">
+          <input type="hidden" name="user_id" value="<?= $user->id ?>">
+          <input class="form-control fs-3" name="password" type="password" placeholder="Password..." required>
+        </div>
+      </div>
+      <div class="mb-4">
+        <button class="btn btn-danger w-100" id="rejectUserBtn">
+          Reject
+        </button>
+
+        <button class="btn btn-success w-100 d-none" type="button" id="rejectUserLoadingBtn" disabled>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span role="status">Loading...</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="card">
+      <div class="card-header">
+        Output Log
+      </div>
+      <div class="card-body bg-dark">
+        <code class="text-light" id="outputLog2">
         </code>
       </div>
     </div>
@@ -112,7 +157,7 @@
 
 <script>
   const approveUserForm = document.querySelector('#approveUserForm');
-  const outputLog = document.querySelector('#outputLog');
+  const outputLog1 = document.querySelector('#outputLog1');
   const approveUserBtn = approveUserForm.querySelector('#approveUserBtn');
   const approveUserLoadingBtn = approveUserForm.querySelector('#approveUserLoadingBtn');
 
@@ -134,25 +179,25 @@
           approveUserBtn.classList.remove('d-none');
           approveUserLoadingBtn.classList.add('d-none');
 
-          let trail = outputLog.innerHTML;
+          let trail = outputLog1.innerHTML;
 
-          outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
-          outputLog.innerHTML += data.message;
-          outputLog.innerHTML += '<br>';
-          outputLog.innerHTML += trail;
+          outputLog1.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog1.innerHTML += data.message;
+          outputLog1.innerHTML += '<br>';
+          outputLog1.innerHTML += trail;
         } else {
           approveUserBtn.classList.remove('d-none');
           approveUserBtn.classList.add('disabled');
           approveUserBtn.innerHTML = 'Approved';
           approveUserLoadingBtn.classList.add('d-none');
 
-          let trail = outputLog.innerHTML;
+          let trail = outputLog1.innerHTML;
 
-          outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
-          outputLog.innerHTML += data.message;
-          outputLog.innerHTML += '<br>';
-          outputLog.innerHTML += "Redirecting to user's page in 4s...";
-          outputLog.innerHTML += trail;
+          outputLog1.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog1.innerHTML += data.message;
+          outputLog1.innerHTML += '<br>';
+          outputLog1.innerHTML += "Redirecting to user's page in 4s...";
+          outputLog1.innerHTML += trail;
 
           setTimeout(() => {
             window.location.href = '<?= base_url('moderator-console/user-management/user/' . $user->id) ?>';
@@ -163,12 +208,77 @@
         approveUserBtn.classList.add('d-none');
         approveUserLoadingBtn.classList.remove('d-none');
 
-        let trail = outputLog.innerHTML;
+        let trail = outputLog1.innerHTML;
 
-        outputLog.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
-        outputLog.innerHTML += data.message;
-        outputLog.innerHTML += '<br>';
-        outputLog.innerHTML += trail;
+        outputLog1.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+        outputLog1.innerHTML += data.message;
+        outputLog1.innerHTML += '<br>';
+        outputLog1.innerHTML += trail;
+      });
+  });
+</script>
+
+
+<script>
+  const rejectUserForm = document.querySelector('#rejectUserForm');
+  const outputLog2 = document.querySelector('#outputLog2');
+  const rejectUserBtn = rejectUserForm.querySelector('#rejectUserBtn');
+  const rejectUserLoadingBtn = rejectUserForm.querySelector('#rejectUserLoadingBtn');
+
+  rejectUserForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(rejectUserForm);
+
+    rejectUserBtn.classList.add('d-none');
+    rejectUserLoadingBtn.classList.remove('d-none');
+
+    fetch('<?= base_url('moderator-console/user-management/reject') ?>', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.success == false) {
+          rejectUserBtn.classList.remove('d-none');
+          rejectUserLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog2.innerHTML;
+
+          outputLog2.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog2.innerHTML += data.message;
+          outputLog2.innerHTML += '<br>';
+          outputLog2.innerHTML += trail;
+        } else {
+          rejectUserBtn.classList.remove('d-none');
+          rejectUserBtn.classList.add('disabled');
+          rejectUserBtn.innerHTML = 'Rejected';
+          rejectUserLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog2.innerHTML;
+
+          outputLog2.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog2.innerHTML += data.message;
+          outputLog2.innerHTML += '<br>';
+          outputLog2.innerHTML += "Redirecting to user's page in 4s...";
+          outputLog2.innerHTML += trail;
+
+          setTimeout(() => {
+            window.location.href = '<?= base_url('moderator-console/user-management/kyc') ?>';
+          }, 4000);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        rejectUserBtn.classList.add('d-none');
+        rejectUserLoadingBtn.classList.remove('d-none');
+
+        let trail = outputLog2.innerHTML;
+
+        outputLog2.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+        // outputLog2.innerHTML += data.message;
+        outputLog2.innerHTML += '<br>';
+        outputLog2.innerHTML += trail;
       });
   });
 </script>
