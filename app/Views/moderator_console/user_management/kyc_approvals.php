@@ -34,7 +34,11 @@
             <?php foreach ($users as $user) : ?>
               <tr>
                 <td class="border-bottom-0">
-                  <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="35" height="35" class="rounded-circle">
+                  <?php if ($user->avatar == '') : ?>
+                    <img src="<?= base_url() ?>/fassets/img/avatar-person.svg" alt="" width="35" height="35" class="rounded-circle">
+                  <?php else : ?>
+                    <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="35" height="35" class="rounded-circle">
+                  <?php endif ?>
                 </td>
                 <td class="border-bottom-0">
                   <h6 class="fw-semibold mb-0"><?= $user->firstname . ' ' . $user->lastname ?></h6>

@@ -59,6 +59,7 @@ class UserManagementController extends BaseController
         $this->data['title'] = 'Moderator Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
         $this->data['user'] = (new UserModel())->where('account_status', 'under_review')->find($user_id);
+        $this->data['csrf_token'] = csrf_hash();
 
         return view('moderator_console/header', $this->data) .
             view('moderator_console/user_management/kyc_candidate') .
@@ -92,15 +93,6 @@ class UserManagementController extends BaseController
             $user_id           = (int) $this->request->getPost('user_id');
             $secureUserPayload = $this->generateSecureUserPayloadForUser($user_id);
 
-            return Services::response()
-                ->setJSON(
-                    [
-                        'success' => true,
-                        'message' => 'Log: User <span class="text-success">account successfully created</span>. The corresponding system accounts have been initialized too.<br> Timestamp: ' . date('H:i') . ' hrs.',
-                    ]
-                )
-                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
-            die();
 
             $db = \Config\Database::connect();
             $db->transStart();
@@ -114,12 +106,21 @@ class UserManagementController extends BaseController
             $users->save($user);
 
             $db->transComplete();
+
+            return Services::response()
+                ->setJSON(
+                    [
+                        'success' => true,
+                        'message' => 'Log: User <span class="text-success">account successfully created</span>. The corresponding system accounts have been initialized too.<br> Timestamp: ' . date('H:i') . ' hrs.',
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
         } else {
             return redirect()->back();
         }
     }
 
-    public function declineUserAndRequestResubmission()
+    public function rejectUser()
     {
         if ($this->request->getPost()) {
             $credentials = [
@@ -130,38 +131,49 @@ class UserManagementController extends BaseController
             $validCreds = auth()->check($credentials);
 
             if (!$validCreds->isOK()) {
-                return redirect()->back()->with('error', $validCreds->reason());
+                return Services::response()
+                    ->setJSON(
+                        [
+                            'success' => false,
+                            'message' => 'Log: The password is <span class="text-danger">Incorrect</span> 😬. Please try again.<br> Timestamp: ' . date('H:i') . ' hrs.'
+                        ]
+                    )
+                    ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
             }
 
+            $db = \Config\Database::connect();
+            $db->transStart();
 
             // Reject User Registration
             $users = auth()->getProvider();
 
-            $user = $users->findById($this->request->getPost('user_id'));
-            $user->fill([
-                'account_status' => 'pending',
-                'student_id' => '',
-                'student_id_document' => '',
-                'institution' => '',
-                'country' => '',
-                'avatar' => '',
-            ]);
-            $users->save($user);
-
-            unlink('../public/assets/uploads/' . auth()->user()->student_id_doc);
-            unlink('../public/assets/uploads/' . auth()->user()->avatar);
+            // $user = $users->findById($this->request->getPost('user_id'));
+            // $user->fill([
+            //     'account_status' => 'rejected',
+            // ]);
+            // $users->save($user);
 
 
             // Notify user about action
             $email = \Config\Services::email();
 
             $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
-            $email->setTo($user->email);
+            $email->setTo('aaronmk2001@gmail.com');
 
-            $email->setSubject('KYC Failure');
-            $email->setMessage(view('auth/emails/kyc_failure'));
-
+            $email->setSubject('Application Declined');
+            $email->setMessage(view('moderator_console/user_management/emails/user_rejection_email'));
             $email->send();
+
+            $db->transComplete();
+
+            return Services::response()
+                ->setJSON(
+                    [
+                        'success' => true,
+                        'message' => 'Log: User\'s application has been declined and notified of it.<br> Timestamp: ' . date('H:i') . ' hrs.',
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
         }
     }
 

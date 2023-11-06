@@ -22,7 +22,7 @@
             <div style="padding-bottom: 30px; font-size: 17px;">
               <strong>Hey there, 😃</strong>
             </div>
-            <div style="padding-bottom: 30px">We would like to inform you that we were unable to verify your details. Please resubmit your details again.</div>
+            <div style="padding-bottom: 30px">We would like to inform you that your application to join the ITP Cloud Platform was not successful. If you feel that this was a mistake, reach out to the system administrators.</div>
 
             <div style="padding-bottom: 30px">If you did not initiate this email, no further action is required. You can safely disregard this email. </div>
             <!--end:Email content-->
