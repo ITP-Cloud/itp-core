@@ -105,6 +105,16 @@ class UserManagementController extends BaseController
             ]);
             $users->save($user);
 
+            // Notify user about action
+            $email = \Config\Services::email();
+
+            $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
+            $email->setTo('aaronmk2001@gmail.com');
+
+            $email->setSubject('Developer Application Approved');
+            $email->setMessage(view('moderator_console/user_management/emails/user_approval_email'));
+            $email->send();
+
             $db->transComplete();
 
             return Services::response()
