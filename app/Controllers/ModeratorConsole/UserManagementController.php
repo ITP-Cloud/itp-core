@@ -207,8 +207,11 @@ class UserManagementController extends BaseController
 
             $user = $users->findById($this->request->getPost('user_id'));
 
-            unlink('../public/assets/uploads/' . $user->student_id_document);
-            unlink('../public/assets/uploads/' . $user->avatar);
+            try {
+                unlink('../public/assets/uploads/' . $user->student_id_document);
+                unlink('../public/assets/uploads/' . $user->avatar);
+            } catch (\Throwable $th) {
+            }
 
             $user->fill([
                 'account_status' => 'pending',
@@ -228,7 +231,7 @@ class UserManagementController extends BaseController
             $email->setTo('aaronmk2001@gmail.com');
 
             $email->setSubject('Resubmit KYC Information');
-            $email->setMessage(view('moderator_console/user_management/emails/user_reverification_email'));
+            $email->setMessage(view('moderator_console/user_management/emails/user_kyc_submission_email'));
             $email->send();
 
             $db->transComplete();
@@ -237,7 +240,7 @@ class UserManagementController extends BaseController
                 ->setJSON(
                     [
                         'success' => true,
-                        'message' => 'Log: User has been requested to resubmit KYC detailt.<br> Timestamp: ' . date('H:i') . ' hrs.',
+                        'message' => 'Log: User has been requested to resubmit KYC details.<br> Timestamp: ' . date('H:i') . ' hrs.',
                     ]
                 )
                 ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);

@@ -155,6 +155,47 @@
   </div>
 </div>
 
+<div class="offcanvas offcanvas-end" tabindex="-1" id="requestResubmitKyc" aria-labelledby="requestResubmitKycLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="requestResubmitKycLabel"><span class="text-secondary">Request</span> KYC Resubmission</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form id="requestResubmitKycForm">
+      <div class="mb-4">
+        <p>You are about to request <?= $user->firstname . ' ' . $user->lastname ?> to resubmit their KYC information. We will notify them by email of this action.</p>
+        <div>
+          <label class="form-label" for="">Password</label>
+          <input type="hidden" name="csrf_token_name" value="<?= $csrf_token ?>">
+          <input type="hidden" name="user_id" value="<?= $user->id ?>">
+          <input class="form-control fs-3" name="password" type="password" placeholder="Password..." required>
+        </div>
+      </div>
+      <div class="mb-4">
+        <button class="btn btn-secondary w-100" id="requestResubmitKycBtn">
+          Request Resubmission
+        </button>
+
+        <button class="btn btn-success w-100 d-none" type="button" id="requestResubmitKycLoadingBtn" disabled>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span role="status">Loading...</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="card">
+      <div class="card-header">
+        Output Log
+      </div>
+      <div class="card-body bg-dark">
+        <code class="text-light" id="outputLog3">
+        </code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Approve User Action -->
 <script>
   const approveUserForm = document.querySelector('#approveUserForm');
   const outputLog1 = document.querySelector('#outputLog1');
@@ -211,14 +252,14 @@
         let trail = outputLog1.innerHTML;
 
         outputLog1.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
-        outputLog1.innerHTML += data.message;
+        outputLog1.innerHTML += 'Something went wrong, please try again later. If the issue persists, inform the system administrator';
         outputLog1.innerHTML += '<br>';
         outputLog1.innerHTML += trail;
       });
   });
 </script>
 
-
+<!-- Reject User Action -->
 <script>
   const rejectUserForm = document.querySelector('#rejectUserForm');
   const outputLog2 = document.querySelector('#outputLog2');
@@ -276,9 +317,74 @@
         let trail = outputLog2.innerHTML;
 
         outputLog2.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
-        // outputLog2.innerHTML += data.message;
+        outputLog2.innerHTML += 'Something went wrong, please try again later. If the issue persists, inform the system administrator';
         outputLog2.innerHTML += '<br>';
         outputLog2.innerHTML += trail;
+      });
+  });
+</script>
+
+<!-- Request Resubmission of KYC Information -->
+<script>
+  const requestResubmitKycForm = document.querySelector('#requestResubmitKycForm');
+  const outputLog3 = document.querySelector('#outputLog3');
+  const requestResubmitKycBtn = requestResubmitKycForm.querySelector('#requestResubmitKycBtn');
+  const requestResubmitKycLoadingBtn = requestResubmitKycForm.querySelector('#requestResubmitKycLoadingBtn');
+
+  requestResubmitKycForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(requestResubmitKycForm);
+
+    requestResubmitKycBtn.classList.add('d-none');
+    requestResubmitKycLoadingBtn.classList.remove('d-none');
+
+    fetch('<?= base_url('moderator-console/user-management/resubmit') ?>', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.success == false) {
+          requestResubmitKycBtn.classList.remove('d-none');
+          requestResubmitKycLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog3.innerHTML;
+
+          outputLog3.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog3.innerHTML += data.message;
+          outputLog3.innerHTML += '<br>';
+          outputLog3.innerHTML += trail;
+        } else {
+          requestResubmitKycBtn.classList.remove('d-none');
+          requestResubmitKycBtn.classList.add('disabled');
+          requestResubmitKycBtn.innerHTML = 'Rejected';
+          requestResubmitKycLoadingBtn.classList.add('d-none');
+
+          let trail = outputLog3.innerHTML;
+
+          outputLog3.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+          outputLog3.innerHTML += data.message;
+          outputLog3.innerHTML += '<br>';
+          outputLog3.innerHTML += "Redirecting to user's page in 4s...";
+          outputLog3.innerHTML += trail;
+
+          setTimeout(() => {
+            window.location.href = '<?= base_url('moderator-console/user-management/kyc') ?>';
+          }, 4000);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        requestResubmitKycBtn.classList.add('d-none');
+        requestResubmitKycLoadingBtn.classList.remove('d-none');
+
+        let trail = outputLog3.innerHTML;
+
+        outputLog3.innerHTML = '$ ~ <span class="text-warning">Session Output:</span> <br>'
+        outputLog3.innerHTML += 'Something went wrong, please try again later. If the issue persists, inform the system administrator';
+        outputLog3.innerHTML += '<br>';
+        outputLog3.innerHTML += trail;
       });
   });
 </script>
