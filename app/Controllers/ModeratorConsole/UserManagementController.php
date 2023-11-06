@@ -109,7 +109,7 @@ class UserManagementController extends BaseController
             $email = \Config\Services::email();
 
             $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
-            $email->setTo('aaronmk2001@gmail.com');
+            $email->setTo($user->email);
 
             $email->setSubject('Developer Application Approved');
             $email->setMessage(view('moderator_console/user_management/emails/user_approval_email'));
@@ -157,18 +157,18 @@ class UserManagementController extends BaseController
             // Reject User Registration
             $users = auth()->getProvider();
 
-            // $user = $users->findById($this->request->getPost('user_id'));
-            // $user->fill([
-            //     'account_status' => 'rejected',
-            // ]);
-            // $users->save($user);
+            $user = $users->findById($this->request->getPost('user_id'));
+            $user->fill([
+                'account_status' => 'rejected',
+            ]);
+            $users->save($user);
 
 
             // Notify user about action
             $email = \Config\Services::email();
 
             $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
-            $email->setTo('aaronmk2001@gmail.com');
+            $email->setTo($user->email);
 
             $email->setSubject('Application Declined');
             $email->setMessage(view('moderator_console/user_management/emails/user_rejection_email'));
@@ -238,7 +238,7 @@ class UserManagementController extends BaseController
             $email = \Config\Services::email();
 
             $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
-            $email->setTo('aaronmk2001@gmail.com');
+            $email->setTo($user->email);
 
             $email->setSubject('Resubmit KYC Information');
             $email->setMessage(view('moderator_console/user_management/emails/user_kyc_submission_email'));
