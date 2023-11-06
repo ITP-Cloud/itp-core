@@ -3601,8 +3601,8 @@ textarea.form-control.is-invalid {
 .btn-check:focus+.btn,
 .btn:focus {
   outline: 0;
-  -webkit-box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.25);
-  box-shadow: 0 0 0 0.25rem rgba(255, 153, 0, 0.25);
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
 }
 
 .btn:disabled,
@@ -3629,8 +3629,8 @@ fieldset:disabled .btn {
   color: #FFFEFE;
   background-color: #636acb;
   border-color: #5d64bf;
-  -webkit-box-shadow: 0 0 0 0 rgba(137, 144, 241, 0.5);
-  box-shadow: 0 0 0 0 rgba(137, 144, 241, 0.5);
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(93, 135, 255, 0.25);
 }
 
 .btn-check:checked+.btn-primary,
