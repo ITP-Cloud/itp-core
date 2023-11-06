@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ManagedWebsiteModel;
 use CodeIgniter\Shield\Entities\User;
 
 class Home extends BaseController
@@ -15,6 +16,14 @@ class Home extends BaseController
 
     public function index()
     {
+        // $client = \Config\Services::curlrequest();
+        // $response = $client->request(
+        //     'GET',
+        //     'https://jsonplaceholder.typicode.com/posts',
+        // );
+        // dd($response->getBody());
+
+
         if (auth()->loggedIn()) {
             if (auth()->user()->inGroup('superadmin')) {
                 return redirect()->to('moderator-console');
@@ -29,6 +38,18 @@ class Home extends BaseController
 
         return view('templates/header', $this->data) .
             view('index') .
+            view('templates/footer');
+    }
+
+    public function getWebsites(): string
+    {
+        $this->data['page'] = 'websites';
+        $this->data['title'] = 'Websites | ITP Cloud';
+        $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+        $this->data['websites'] = (new ManagedWebsiteModel())->getAllWebsites();
+
+        return view('templates/header', $this->data) .
+            view('websites') .
             view('templates/footer');
     }
 

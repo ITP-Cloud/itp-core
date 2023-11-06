@@ -35,6 +35,7 @@ class Filters extends BaseConfig
             'invalidchars',
             'session' => ['except' => [
                 '/',
+                'websites',
                 'login*',
                 'register',
                 'auth/a/*'
