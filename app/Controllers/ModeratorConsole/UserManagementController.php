@@ -177,6 +177,73 @@ class UserManagementController extends BaseController
         }
     }
 
+
+    public function requestResubmitKyc()
+    {
+        if ($this->request->getPost()) {
+            $credentials = [
+                'email'    => auth()->user()->email,
+                'password' => $this->request->getPost('password')
+            ];
+
+            $validCreds = auth()->check($credentials);
+
+            if (!$validCreds->isOK()) {
+                return Services::response()
+                    ->setJSON(
+                        [
+                            'success' => false,
+                            'message' => 'Log: The password is <span class="text-danger">Incorrect</span> 😬. Please try again.<br> Timestamp: ' . date('H:i') . ' hrs.'
+                        ]
+                    )
+                    ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+            }
+
+            $db = \Config\Database::connect();
+            $db->transStart();
+
+            // Reject User Registration
+            $users = auth()->getProvider();
+
+            $user = $users->findById($this->request->getPost('user_id'));
+
+            unlink('../public/assets/uploads/' . $user->student_id_document);
+            unlink('../public/assets/uploads/' . $user->avatar);
+
+            $user->fill([
+                'account_status' => 'pending',
+                'student_id' => '',
+                'student_id_document' => '',
+                'institution' => '',
+                'country' => '',
+                'avatar' => ''
+            ]);
+            $users->save($user);
+
+
+            // Notify user about action
+            $email = \Config\Services::email();
+
+            $email->setFrom('itp@gulanistores.com', 'ITP Cloud Moderator');
+            $email->setTo('aaronmk2001@gmail.com');
+
+            $email->setSubject('Resubmit KYC Information');
+            $email->setMessage(view('moderator_console/user_management/emails/user_reverification_email'));
+            $email->send();
+
+            $db->transComplete();
+
+            return Services::response()
+                ->setJSON(
+                    [
+                        'success' => true,
+                        'message' => 'Log: User has been requested to resubmit KYC detailt.<br> Timestamp: ' . date('H:i') . ' hrs.',
+                    ]
+                )
+                ->setStatusCode(ResponseInterface::HTTP_ACCEPTED);
+        }
+    }
+
     private function generateSecurePassword()
     {
         $password = '';

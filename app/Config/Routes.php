@@ -72,6 +72,7 @@ $routes->group(
 
       $routes->post('approve', 'UserManagementController::approveUser');
       $routes->post('reject', 'UserManagementController::rejectUser');
+      $routes->post('resubmit', 'UserManagementController::requestResubmitKyc');
     });
   }
 );
