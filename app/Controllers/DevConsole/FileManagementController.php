@@ -23,9 +23,4 @@ class FileManagementController extends BaseController
             view('dev_console/file_management/index') .
             view('dev_console/footer');
     }
-
-    public function getFileExplorer()
-    {
-        //
-    }
 }

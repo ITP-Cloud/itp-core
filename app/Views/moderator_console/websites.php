@@ -12,7 +12,7 @@
   <div>
     <p class="text-muted">Manage all <span class="text-primary">websites</span> here.</p>
   </div>
-  <div class="row mt-7 justify-content-center gap-3">
+  <div class="row mt-7 gap-3">
     <?php foreach ($websites as $website) : ?>
       <div class="col-auto">
         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#websiteDetails<?= $website['md_ws_id'] ?>" aria-controls="staticBackdrop">
@@ -34,7 +34,7 @@
             <div class="card overflow-hidden rounded-2">
               <div class="position-relative">
                 <img src="<?= base_url() ?>/assets/images/backgrounds/website-bg.jpg" class="card-img-top rounded-0" alt="...">
-                <div class="bg-primary border border-light border-2 rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
+                <div class="bg-primary border border-light border-2 rounded p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
                   <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" width="100" data-bs-placement="top">
                 </div>
               </div>
