@@ -20,6 +20,9 @@ $routes->group(
     $routes->group('databases', ['namespace' => 'App\Controllers\DevConsole', 'filter' => 'group:user'], static function ($routes) {
       $routes->get('/', 'DatabaseManagementController::getDatabases');
       $routes->post('new', 'DatabaseManagementController::newDatabase');
+
+      $routes->get('synchronize', 'DatabaseManagementController::synchronizeDatabases');
+
       $routes->get('delete/(:num)', 'DatabaseManagementController::deleteDatabase/$1');
       $routes->post('delete/(:num)', 'DatabaseManagementController::deleteDatabaseAJAX/$1'); // AJAX oriented route
     });
