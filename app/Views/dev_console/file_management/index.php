@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('console') ?>">Home</a></li>
+      <li class="breadcrumb-item active">Files</li>
+    </ol>
+  </nav>
   <h2>File <span class="text-primary">Management</span></h2>
   <div>
     <p class="text-muted">Manage your databases here.</p>
