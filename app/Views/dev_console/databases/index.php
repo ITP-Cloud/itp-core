@@ -5,7 +5,10 @@
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
         <i class="ti ti-database"></i> New Database
       </button>
-      <a href="<?= env('serverUrl') ?>/phpmyadmin/" class="btn btn-outline-primary">
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#databaseCredentialsOffcanvas" aria-controls="databaseCredentialsOffcanvas">
+        <i class="ti ti-eye"></i> Check Credentials
+      </button>
+      <a href="<?= env('serverUrl') ?>/phpmyadmin/" target="_blank" class="btn btn-outline-primary">
         Open phpMyAdmin
       </a>
     </div>
@@ -43,6 +46,47 @@
           </div>
         </div>
 
+
+      </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="databaseCredentialsOffcanvas" aria-labelledby="databaseCredentialsOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="staticBackdropLabel"><span class="text-primary">Database</span> Credentials</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="card">
+          <div class="card-body p-4">
+            <h5 class="card-title">Overview</h5>
+            <p class="card-text">
+              Use the <span class="text-primary">Credentials</span> below to connect your App to your preferred Database.
+            </p>
+            <h5 class="card-title">Credentials</h5>
+            <div>
+              <div class="input-group mb-3 border rounded">
+                <span class="input-group-text">Username</span>
+                <input type="text" class="form-control" id="target-username" value="<?= $userPayload['dbUsername'] ?>" readonly>
+                <div class="input-group-text">
+                  <button class="btn btn-primary" id="clipboard-username" data-clipboard-target="#target-username">
+                    <i class="ti ti-clipboard fs-6"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="input-group mb-3 border rounded">
+                <span class="input-group-text">Password</span>
+                <input type="password" class="form-control" value="<?= $userPayload['dbPassword'] ?>" readonly>
+                <input type="text" class="visually-hidden" id="target-password" value="<?= $userPayload['dbPassword'] ?>">
+                <div class="input-group-text">
+                  <button class="btn btn-primary" id="clipboard-password" data-clipboard-target="#target-password">
+                    <i class="ti ti-clipboard fs-6"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

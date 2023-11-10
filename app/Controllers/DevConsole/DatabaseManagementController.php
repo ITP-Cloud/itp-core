@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\ManagedDatabaseModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
+use ReallySimpleJWT\Token;
 
 class DatabaseManagementController extends BaseController
 {
@@ -23,6 +24,8 @@ class DatabaseManagementController extends BaseController
         $this->data['page'] = 'databases';
         $this->data['title'] = 'Developer Console | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
+        $this->data['databases'] = $this->databaseModel->getAllDatabasesFor(auth()->user()->id);
+        $this->data['userPayload'] = Token::getPayload(auth()->user()->username);
 
         return view('dev_console/header', $this->data) .
             view('dev_console/databases/index') .
