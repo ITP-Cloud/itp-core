@@ -110,18 +110,7 @@ class WebsiteManagementController extends BaseController
             ) {
             }
 
-            $websiteAbsolutePath = '';
-            switch ($this->request->getPost('website_tech_stack')) {
-                case 'codeigniter4':
-                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName . '/public';
-                    break;
-                case 'laravel':
-                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName . '/public';
-                    break;
-                default:
-                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName;
-                    break;
-            }
+
 
             $this->managedWebsiteModel->insert([
                 'developer_id' => auth()->user()->id,
@@ -131,7 +120,7 @@ class WebsiteManagementController extends BaseController
                 'md_ws_type' => 'developer-site',
                 'md_ws_tech_stack' => $this->request->getPost('website_tech_stack'),
                 'md_ws_vhost_identifier' => 'md_ws_' . $websiteName,
-                'md_ws_website_absolute_path' => $websiteAbsolutePath,
+                'md_ws_website_absolute_path' => '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName,
             ]);
 
             $db->transComplete();
@@ -143,11 +132,14 @@ class WebsiteManagementController extends BaseController
 
             // Step 5: Create the website phyically
             $website = $this->managedWebsiteModel->find($this->managedWebsiteModel->getInsertID());
+            $has_public_folder = $this->shouldWebsiteHavePublicFolder($website['md_ws_tech_stack']);
+
             ITPEngineProxy::createWebsite([
                 'linuxUser' => $userPayload['linuxUsername'],
                 'portNumber' => $website['md_ws_port_number'],
                 'vhostIdentifier' => $website['md_ws_vhost_identifier'],
-                'websiteAbsolutePath' => $websiteAbsolutePath,
+                'websiteAbsolutePath' => '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName,
+                'hasPublicFolder' => $has_public_folder
             ]);
 
             // Final Step
@@ -194,5 +186,24 @@ class WebsiteManagementController extends BaseController
     public function deleteWebsiteAJAX()
     {
         //
+    }
+
+    private function shouldWebsiteHavePublicFolder(string $website_stack = ''): bool
+    {
+        $has_public_folder = false;
+
+        switch ($website_stack) {
+            case 'codeigniter4':
+                $has_public_folder = true;
+                break;
+            case 'laravel':
+                $has_public_folder = true;
+                break;
+            default:
+                $has_public_folder = false;
+                break;
+        }
+
+        return $has_public_folder;
     }
 }
