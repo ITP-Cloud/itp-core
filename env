@@ -148,6 +148,7 @@
 #--------------------------------------------------------------------
 
 # Change the userTokenSecret in production
-userTokenSecret = '8$US9KelBwSkZnTkx6aEx1eQ' 
-engineUrl = 'http://localhost:8001'
-serverUrl = 'http://localhost'
+# userTokenSecret = '8$US9KelBwSkZnTkx6aEx1eQ' 
+# engineUrl = 'http://localhost:8001'
+# serverUrl = 'http://localhost'
+# ftpServerAddress = 'localhost'
