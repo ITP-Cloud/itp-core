@@ -85,15 +85,33 @@ class ITPEngineProxy
     ITPEngineProxy::createFtpAccount($user);
   }
 
-  public static function deleteFtpAccount(array $user = null)
+  public static function createWebsite(array $website = null)
   {
   }
 
-  public static function createWebsite(array $website)
+  public static function createDatabase(array $database = null)
   {
+    $client = \Config\Services::curlrequest();
+    $response = $client->request(
+      'POST',
+      env('engineUrl') . '/api/v1/database/new',
+      [
+        'headers' => [
+          'Content-Type' => 'application/json'
+        ],
+        'body' => json_encode($database)
+      ]
+    );
+
+    if ($response->getStatusCode() == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  public static function deleteWebsite(array $website)
+
+  public static function deleteWebsite(array $website = null)
   {
   }
 }
