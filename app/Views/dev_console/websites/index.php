@@ -40,12 +40,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <img src="<?= base_url() ?>/assets/images/backgrounds/website-bg.jpg" class="card-img-top rounded-0" alt="...">
-                <div class="bg-primary border border-light border-2 rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
-                  <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" width="100" data-bs-placement="top">
-                </div>
+            <div class="overflow-hidden rounded-2">
+              <div class="text-center mt-4">
+                <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" width="100" data-bs-placement="top">
               </div>
               <div class="card-body pt-3 p-4">
                 <h6 class="fw-semibold fs-4"><?= $website['md_ws_name'] ?></h6>
@@ -60,12 +57,12 @@
                 </div>
               </div>
             </div>
-            <div class="card">
-              <div class="card-header">
+            <div class="m-4">
+              <div class="card-header fs-3">
                 Description
               </div>
               <div class="card-body">
-                <?= $website['md_ws_description'] ?>
+                <p class="card-text fw-light fs-2"><?= $website['md_ws_description'] ?></p>
               </div>
             </div>
 
