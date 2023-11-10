@@ -45,4 +45,13 @@ class ManagedDatabaseModel extends Model
             ->join('users', 'managed_databases.developer_id = users.id')
             ->findAll();
     }
+
+    public function getAllDatabasesFor(int $developer_id)
+    {
+        return
+            $this->select('managed_databases.*, users.firstname, users.lastname')
+            ->join('users', 'managed_databases.developer_id = users.id')
+            ->where('developer_id', $developer_id)
+            ->findAll();
+    }
 }
