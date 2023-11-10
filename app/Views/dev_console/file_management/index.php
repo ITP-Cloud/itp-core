@@ -17,7 +17,7 @@
           <div>
             <div class="input-group mb-3 border rounded">
               <span class="input-group-text">Server Address</span>
-              <input type="text" class="form-control" id="target-server-address" value="192.168.235.120" readonly>
+              <input type="text" class="form-control" id="target-server-address" value="<?= env('ftpServerAddress') ?>" readonly>
               <div class="input-group-text">
                 <button class="btn btn-primary" id="clipboard-server-address" data-clipboard-target="#target-server-address">
                   <i class="ti ti-clipboard fs-6"></i>
@@ -27,7 +27,7 @@
 
             <div class="input-group mb-3 border rounded">
               <span class="input-group-text">Username</span>
-              <input type="text" class="form-control" id="target-username" value="sammy" readonly>
+              <input type="text" class="form-control" id="target-username" value="<?= $userPayload['ftpUsername'] ?>" readonly>
               <div class="input-group-text">
                 <button class="btn btn-primary" id="clipboard-username" data-clipboard-target="#target-username">
                   <i class="ti ti-clipboard fs-6"></i>
@@ -37,7 +37,8 @@
 
             <div class="input-group mb-3 border rounded">
               <span class="input-group-text">Password</span>
-              <input type="password" class="form-control" id="target-password" value="123456789" readonly>
+              <input type="password" class="form-control" value="<?= $userPayload['ftpPassword'] ?>" readonly>
+              <input type="text" class="visually-hidden" id="target-password" value="<?= $userPayload['ftpPassword'] ?>">
               <div class="input-group-text">
                 <button class="btn btn-primary" id="clipboard-password" data-clipboard-target="#target-password">
                   <i class="ti ti-clipboard fs-6"></i>
