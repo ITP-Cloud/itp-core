@@ -11,7 +11,7 @@
   </div>
   <div class="card">
     <div class="card-header text-center">
-      <?php if (auth()->user()->avatar == '') : ?>
+      <?php if ($user->avatar == '') : ?>
         <img src="<?= base_url() ?>/fassets/img/avatar-person.svg" alt="" width="90" height="90" class="rounded-circle mb-2">
       <?php else : ?>
         <img src="<?= base_url('assets/uploads/' . $user->avatar) ?>" alt="" width="90" height="90" class="rounded-circle mb-2">
