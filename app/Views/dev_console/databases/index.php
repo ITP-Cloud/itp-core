@@ -1,10 +1,13 @@
 <div class="container-fluid">
   <div class="d-flex">
     <h2>Database <span class="text-primary">Management</span></h2>
-    <div class="m-1 ms-auto">
+    <div class="m-1 ms-auto border border-primary p-2 rounded-2 bg-light">
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
         <i class="ti ti-database"></i> New Database
       </button>
+      <a href="<?= base_url('console/databases/synchronize') ?>" class="btn btn-outline-primary">
+        <i class="ti ti-rotate-dot"></i> Synchronize Databases
+      </a>
       <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#databaseCredentialsOffcanvas" aria-controls="databaseCredentialsOffcanvas">
         <i class="ti ti-eye"></i> Check Credentials
       </button>
@@ -23,7 +26,7 @@
           <form id="newDatabaseForm">
             <input type="hidden" name="csrf_token_name" value="<?= csrf_hash() ?>">
             <div class="input-group mb-3 border rounded">
-              <span class="input-group-text" id="basic-addon1">user1234</span>
+              <span class="input-group-text" id="basic-addon1"><?= $userPayload['dbUsername'] ?></span>
               <input type="text" class="form-control" name="database_name" value="" placeholder="Database name" required>
             </div>
 
@@ -111,28 +114,58 @@
               Get Credentials
             </button>
 
-            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="getCredentialsCanvas<?= $database['md_db_id'] ?>" aria-labelledby="staticBackdropLabel">
-              <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="staticBackdropLabel"><span class="text-primary">Database</span> Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="getCredentialsCanvas<?= $database['md_db_id'] ?>" aria-labelledby="staticBackdropLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="staticBackdropLabel"><span class="text-primary">Database</span> Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="card">
+            <div class="card-body p-4">
+              <h5 class="card-title">Connection Details</h5>
+              <p class="card-text">
+                Use the <span class="text-primary">Credentials</span> below to connect your App to your preferred Database.
+              </p>
+              <div class="rounded-2">
+                PHP
+                <pre><code class="language-php">
+&lt;?php 
+$dbUsername = '<?= $userPayload['dbUsername'] ?>'; 
+$dbPassword = '<?= $userPayload['dbPassword'] ?>'; 
+$dbHost = 'localhost'; 
+$dbName = '<?= $database['md_db_name'] ?>'';
+
+$conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+</code></pre>
               </div>
-              <div class="offcanvas-body">
-                <div class="card overflow-hidden rounded-2">
-                  <div class="position-relative">
-                    <img src="<?= base_url() ?>/assets/images/backgrounds/website-bg.jpg" class="card-img-top rounded-0" alt="...">
-                    <div class="bg-primary border border-light border-2 rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
-                      <i class="ti ti-database" style="font-size: 60px;"></i>
-                    </div>
-                  </div>
-                  <div class="card-body pt-3 p-4">
-                    <h6 class="fw-semibold fs-4"><?= $database['md_db_name'] ?></h6>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div>
-                        <h6 class="fw-light fs-2 mb-0">Owned by <?= auth()->user()->firstname . ' ' . auth()->user()->lastname ?></h6>
-                        <h6 class="fw-light fs-2 mb-0">Created on <?= date('d M Y', strtotime($database['md_db_created_at'])) ?></h6>
-                      </div>
-                    </div>
-                  </div>
+
+              <div class="rounded-2">
+                JS
+                <pre><code class="language-js">
+const express = ...; 
+const dbUsername = '<?= $userPayload['dbUsername'] ?>'; 
+const dbPassword = '<?= $userPayload['dbPassword'] ?>'; 
+const dbHost = 'localhost'; 
+const dbName = '<?= $database['md_db_name'] ?>'';
+
+var mysql = require('mysql');
+
+var conn = mysql.createConnection({
+  host: dbHost,
+  user: dbUsername,
+  password: dbPassword,
+  database: dbName
+});
+</code></pre>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
+                <div>
+                  <h6 class="fw-light fs-2 mb-0">Owned by <?= auth()->user()->firstname . ' ' . auth()->user()->lastname ?></h6>
+                  <h6 class="fw-light fs-2 mb-0">Created on <?= date('d M Y', strtotime($database['md_db_created_at'])) ?></h6>
                 </div>
               </div>
             </div>
@@ -185,7 +218,11 @@
           outputLog.innerHTML += data.message;
           outputLog.innerHTML += '<br>';
           outputLog.innerHTML += trail;
+          outputLog.innerHTML += "Refreshing page in 4s...";
 
+          setTimeout(() => {
+            window.location.href = '<?= base_url('console/databases') ?>';
+          }, 4000);
         }
       })
       .catch(error => {
@@ -200,4 +237,9 @@
         outputLog.innerHTML += trail;
       });
   });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
 </script>
