@@ -5,7 +5,7 @@ namespace App\Libraries;
 /**
  * Class ITPEngineProxy
  * @Author: Aaron Mkandawire
- * @Date:   2018-01-18 11:00:00
+ * @Date:   2023-01-18 11:00:00
  * @version: v1.0
  * @description: This class is used to proxy the ITP Engine
  *               and provide a simple interface to the ITP Engine API
@@ -17,14 +17,17 @@ class ITPEngineProxy
 {
   public static function createUserAccount(array $user = null): bool
   {
-    $itp_engine_url = env('engineUrl');
-
     $client = \Config\Services::curlrequest();
-
-    $response = $client->post($itp_engine_url . '/api/v1/user-account', [
-      'headers' => ['Content-Type', 'application/json'],
-      'body' => json_encode($user)
-    ]);
+    $response = $client->request(
+      'POST',
+      env('engineUrl') . '/api/v1/user-account/new',
+      [
+        'headers' => [
+          'Content-Type' => 'application/json'
+        ],
+        'body' => json_encode($user)
+      ]
+    );
 
     if ($response->getStatusCode() == 200) {
       return true;
@@ -33,23 +36,56 @@ class ITPEngineProxy
     }
   }
 
-  public static function deleteUserAccount(object $user)
+  public static function createDatabaseUser(array $user = null)
   {
+    $client = \Config\Services::curlrequest();
+    $response = $client->request(
+      'POST',
+      env('engineUrl') . '/api/v1/database-user/new',
+      [
+        'headers' => [
+          'Content-Type' => 'application/json'
+        ],
+        'body' => json_encode($user)
+      ]
+    );
+
+    if ($response->getStatusCode() == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  public static function createDatabase(array $options)
+  public static function createFtpAccount(array $user = null)
   {
+    $client = \Config\Services::curlrequest();
+    $response = $client->request(
+      'POST',
+      env('engineUrl') . '/api/v1/ftp-account/new',
+      [
+        'headers' => [
+          'Content-Type' => 'application/json'
+        ],
+        'body' => json_encode($user)
+      ]
+    );
+
+    if ($response->getStatusCode() == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  public static function deleteDatabase(array $options)
+  public static function createSystemAccounts(array $user = null)
   {
+    ITPEngineProxy::createUserAccount($user);
+    ITPEngineProxy::createDatabaseUser($user);
+    ITPEngineProxy::createFtpAccount($user);
   }
 
-  public static function createFtpAccount(array $options)
-  {
-  }
-
-  public static function deleteFtpAccount(array $options)
+  public static function deleteFtpAccount(array $user = null)
   {
   }
 

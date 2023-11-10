@@ -3,6 +3,7 @@
 namespace App\Controllers\ModeratorConsole;
 
 use App\Controllers\BaseController;
+use App\Libraries\ITPEngineProxy;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
@@ -97,6 +98,7 @@ class UserManagementController extends BaseController
             $db = \Config\Database::connect();
             $db->transStart();
 
+            // Approve User Registration
             $users = auth()->getProvider();
             $user = $users->findById($user_id);
             $user->fill([
@@ -104,6 +106,21 @@ class UserManagementController extends BaseController
                 'username' => $secureUserPayload,
             ]);
             $users->save($user);
+
+            // Create User System Account
+            $userPayload = Token::getPayload($secureUserPayload);
+            $result = ITPEngineProxy::createSystemAccounts([
+                "linuxUsername" => $userPayload['linuxUsername'],
+                "linuxPassword" => $userPayload['linuxPassword'],
+                "ftpUsername" => $userPayload['ftpUsername'],
+                "ftpPassword" => $userPayload['ftpPassword'],
+                "dbUsername" => $userPayload['dbUsername'],
+                "dbPassword" => $userPayload['dbPassword'],
+                "fileBrowserUsername" => $userPayload['fileBrowserUsername'],
+                "fileBrowserPassword" => $userPayload['fileBrowserPassword'],
+                "fileBrowserPort" => $userPayload['fileBrowserPort'],
+                "fileBrowserBasePath" => $userPayload['fileBrowserBasePath'],
+            ]);
 
             // Notify user about action
             $email = \Config\Services::email();
@@ -260,7 +277,7 @@ class UserManagementController extends BaseController
     private function generateSecurePassword()
     {
         $password = '';
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$^()_-=+;:,.?';
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#^()_-=+;:,.?';
 
         for ($i = 0; $i < 16; $i++) {
             $password .= $chars[rand(0, strlen($chars) - 1)];
@@ -300,10 +317,6 @@ class UserManagementController extends BaseController
 
         $secret = env('userTokenSecret');
         $token = Token::customPayload($user_payload, $secret);
-
-        // echo $token;
-        // echo '<br>';
-        // dd(Token::getPayload($token));
         return $token;
     }
 }
