@@ -1,20 +1,13 @@
 <div class="container-fluid">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('console') ?>">Home</a></li>
+      <li class="breadcrumb-item active">Database</li>
+    </ol>
+  </nav>
   <div class="d-flex">
     <h2>Database <span class="text-primary">Management</span></h2>
-    <div class="m-1 ms-auto border border-primary p-2 rounded-2 bg-light">
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        <i class="ti ti-database"></i> New Database
-      </button>
-      <a href="<?= base_url('console/databases/synchronize') ?>" class="btn btn-outline-primary">
-        <i class="ti ti-rotate-dot"></i> Synchronize Databases
-      </a>
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#databaseCredentialsOffcanvas" aria-controls="databaseCredentialsOffcanvas">
-        <i class="ti ti-eye"></i> Check Credentials
-      </button>
-      <a href="<?= env('serverUrl') ?>/phpmyadmin/" target="_blank" class="btn btn-outline-primary">
-        Open phpMyAdmin
-      </a>
-    </div>
+
 
     <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
       <div class="offcanvas-header">
@@ -96,6 +89,20 @@
   </div>
   <div>
     <p class="text-muted">Manage your <span class="text-primary">databases</span> here.</p>
+  </div>
+  <div class="">
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+      <i class="ti ti-database"></i> New Database
+    </button>
+    <a href="<?= base_url('console/databases/synchronize') ?>" class="btn btn-outline-primary">
+      <i class="ti ti-rotate-dot"></i> Synchronize Databases
+    </a>
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#databaseCredentialsOffcanvas" aria-controls="databaseCredentialsOffcanvas">
+      <i class="ti ti-eye"></i> Check Credentials
+    </button>
+    <a href="<?= env('serverUrl') ?>/phpmyadmin/" target="_blank" class="btn btn-outline-primary">
+      Open phpMyAdmin
+    </a>
   </div>
   <div class="row mt-7 gap-3">
     <?php foreach ($databases as $database) : ?>
