@@ -11,7 +11,8 @@
   <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/favicon.ico">
   <link rel="manifest" href="<?= base_url() ?>/manifest.json">
   <meta name="msapplication-TileImage" content="<?= base_url() ?>/mstile-150x150.png">
-  <link rel="stylesheet" href="<?= base_url() ?>/assets/css/styles.css" />
+
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/css/styles.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
