@@ -87,6 +87,23 @@ class ITPEngineProxy
 
   public static function createWebsite(array $website = null)
   {
+    $client = \Config\Services::curlrequest();
+    $response = $client->request(
+      'POST',
+      env('engineUrl') . '/api/v1/website/new',
+      [
+        'headers' => [
+          'Content-Type' => 'application/json'
+        ],
+        'body' => json_encode($website)
+      ]
+    );
+
+    if ($response->getStatusCode() == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public static function createDatabase(array $database = null)
@@ -108,10 +125,5 @@ class ITPEngineProxy
     } else {
       return false;
     }
-  }
-
-
-  public static function deleteWebsite(array $website = null)
-  {
   }
 }

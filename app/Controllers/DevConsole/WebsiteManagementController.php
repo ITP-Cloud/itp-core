@@ -3,6 +3,7 @@
 namespace App\Controllers\DevConsole;
 
 use App\Controllers\BaseController;
+use App\Libraries\ITPEngineProxy;
 use App\Models\ManagedWebsiteModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
@@ -103,6 +104,25 @@ class WebsiteManagementController extends BaseController
             $websiteName = str_replace(' ', '_', strtolower($websiteName));
             $websiteName = preg_replace('/[^A-Za-z0-9\-]/', '', $websiteName);
 
+            if (
+                $this->request->getPost('website_tech_stack') == 'codeigniter4' ||
+                'laravel'
+            ) {
+            }
+
+            $websiteAbsolutePath = '';
+            switch ($this->request->getPost('website_tech_stack')) {
+                case 'codeigniter4':
+                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName . '/public';
+                    break;
+                case 'laravel':
+                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName . '/public';
+                    break;
+                default:
+                    $websiteAbsolutePath = '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName;
+                    break;
+            }
+
             $this->managedWebsiteModel->insert([
                 'developer_id' => auth()->user()->id,
                 'md_ws_name' => $websiteName,
@@ -111,7 +131,7 @@ class WebsiteManagementController extends BaseController
                 'md_ws_type' => 'developer-site',
                 'md_ws_tech_stack' => $this->request->getPost('website_tech_stack'),
                 'md_ws_vhost_identifier' => 'md_ws_' . $websiteName,
-                'md_ws_website_absolute_path' => '/home/' . $userPayload['linuxUsername'] . '/ftp/websites/md_ws_' . $websiteName,
+                'md_ws_website_absolute_path' => $websiteAbsolutePath,
             ]);
 
             $db->transComplete();
@@ -121,9 +141,16 @@ class WebsiteManagementController extends BaseController
                 'md_ws_port_number' => $this->managedWebsiteModel->getInsertID() + 8004,
             ]);
 
-            // Final Step
-
+            // Step 5: Create the website phyically
             $website = $this->managedWebsiteModel->find($this->managedWebsiteModel->getInsertID());
+            ITPEngineProxy::createWebsite([
+                'linuxUser' => $userPayload['linuxUsername'],
+                'portNumber' => $website['md_ws_port_number'],
+                'vhostIdentifier' => $website['md_ws_vhost_identifier'],
+                'websiteAbsolutePath' => $websiteAbsolutePath,
+            ]);
+
+            // Final Step
             return Services::response()
                 ->setJSON(
                     [
