@@ -5,7 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Activate Account | ITP Cloud</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/favicon.ico">
+  <link rel="manifest" href="<?= base_url() ?>/manifest.json">
+  <meta name="msapplication-TileImage" content="<?= base_url() ?>/mstile-150x150.png">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/css/styles.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +56,7 @@
 
                 <!-- Code -->
                 <div class="mb-2">
-                  <input type="number" class="form-control form-control-lg w-75 mx-auto" name="token" placeholder="000000" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" value="<?= old('token') ?>" required />
+                  <input type="number" class="form-control form-control-lg w-75 mx-auto text-center" name="token" placeholder="000000" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" value="<?= old('token') ?>" required />
                 </div>
 
                 <div class="d-grid col-8 mx-auto m-3">

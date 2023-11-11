@@ -11,7 +11,7 @@
       <tr>
         <td align="center" valign="center" style="text-align:center; padding: 40px">
           <a href="<?= base_url() ?>" rel="noopener" target="_blank">
-            <img alt="Logo" src="<?= base_url() ?>/assets/images/logos/logo.png" />
+            <img alt="Logo" src="<?= base_url() ?>/assets/images/logos/dark-logo.png" width="100" />
           </a>
         </td>
       </tr>
