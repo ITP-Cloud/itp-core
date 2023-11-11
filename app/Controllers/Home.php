@@ -16,22 +16,6 @@ class Home extends BaseController
 
     public function index()
     {
-        $client = \Config\Services::curlrequest();
-        $response = $client->request(
-            'POST',
-            env('engineUrl') . '/api/v1/post/callback',
-            [
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ],
-                'body' => json_encode([
-                    'message' => 'testing in production',
-                    'status' => 200
-                ])
-            ]
-        );
-
-        dd($response->getBody());
 
         if (auth()->loggedIn()) {
             if (auth()->user()->inGroup('superadmin')) {
