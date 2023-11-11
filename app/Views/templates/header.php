@@ -15,6 +15,7 @@
 
   <meta name="theme-color" content="#ffffff">
   <link href="<?= base_url() ?>/fassets/css/theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
@@ -23,7 +24,25 @@
       font-family: 'Ubuntu', sans-serif;
     }
   </style>
+  <style>
+    a {
+      text-decoration: none;
+    }
 
+    a:hover {
+      text-decoration: none;
+    }
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
 </head>
 
 
@@ -34,14 +53,14 @@
   <!-- ===============================================-->
   <main class="main" id="top">
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container"><a class="navbar-brand" href="index.html">
+      <div class="container"><a class="navbar-brand" href="<?= base_url() ?>">
           <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" height="31" alt="logo" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Home</a></li>
-            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'websites' ? 'active' : '' ?>" aria-current="page" href="<?= base_url('websites') ?>">Websties</a></li>
+            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'websites' ? 'active' : '' ?>" aria-current="page" href="<?= base_url('websites') ?>">Websites</a></li>
             <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'docs' ? 'active' : '' ?>" aria-current="page" target="_blank" href="https://github.com/ITP-Cloud/docs">Docs</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
