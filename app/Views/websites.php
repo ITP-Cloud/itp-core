@@ -1,61 +1,70 @@
-<div class="container">
-  <?php if (count($websites) == 0) : ?>
-    <div class="mb-10">
-      <h3 class="text-center">No <span class="text-primary">Websites</span> Found 🤦‍♂️</h3>
-    </div>
-  <?php endif ?>
+<div class="container mt-3">
+  <h3 class="text-center mb-4">ITP <span class="text-primary">Search</span> 🧐</h3>
 
-  <div class="row mt-7 gap-3">
-    <?php foreach ($websites as $website) : ?>
-      <div class="col-auto">
-        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#websiteDetails<?= $website['md_ws_id'] ?>" aria-controls="staticBackdrop">
-          <div class="card" style="width: 200px">
-            <div class="text-center card-body">
-              <div class="mb-4">
-                <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" alt="Logo" style="width: 100%;">
-              </div>
-              <h3 class="card-text"><?= $website['md_ws_name'] ?></h3>
-            </div>
-          </div>
-        </a>
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="websiteDetails<?= $website['md_ws_id'] ?>" aria-labelledby="staticBackdropLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="staticBackdropLabel"><?= $website['md_ws_name'] ?></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <img src="<?= base_url() ?>/assets/images/backgrounds/website-bg.jpg" class="card-img-top rounded-0" alt="...">
-                <div class="bg-primary border border-light border-2 rounded p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3">
-                  <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" width="100" data-bs-placement="top">
-                </div>
-              </div>
-              <div class="card-body pt-3 p-4">
-                <h6 class="fw-semibold fs-4"><?= $website['md_ws_name'] ?></h6>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h6 class="fw-light fs-2 mb-0">Author by <?= $website['firstname'] . ' ' . $website['lastname'] ?></h6>
-                    <h6 class="fw-light fs-2 mb-0">Created on <?= date('d M Y', strtotime($website['md_ws_created_at'])) ?></h6>
-                  </div>
-                  <div class="list-unstyled d-flex align-items-center mb-0">
-                    <a class="btn btn-primary rounded-pill" target="_blank" href="<?= env('serverUrl') . ':' . $website['md_ws_port_number'] ?>">Visit</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                Description
-              </div>
-              <div class="card-body">
-                <?= $website['md_ws_description'] ?>
-              </div>
-            </div>
+  <div class="d-flex w-75 mx-auto border position-relative" style="border-radius: 20px;">
+    <input class="form-control" type="search" style="border-radius: 20px;" placeholder="Search for websites or type port number" value="<?= $query ?>" name="s_query" <?= $query == '' ? 'autofocus' : '' ?>>
+    <?php if ($query) : ?>
+      <button class="btn btn-primary position-absolute top-0 end-0" style="border-radius: 20px;margin-top: 5px; margin-right:90px" id="clear-search-btn">
+        <i class="bi bi-x-circle-fill"></i>
+      </button>
+    <?php endif ?>
+    <button class="btn btn-primary position-absolute top-0 end-0 me-1" style="border-radius: 20px;margin-top: 5px" id="search-btn">Search</button>
+  </div>
 
-          </div>
-        </div>
+  <div class="mt-4">
+    <?php if ($query) : ?>
+      <span class="mb-4">Search Results for <span class="text-primary"><?= $query ?></span>...</span>
+    <?php else : ?>
+      <span>Recently Deployed</span>
+    <?php endif ?>
+    <?php if (count($websites) == 0) : ?>
+      <div class="mb-10 mt-10">
+        <h3 class="text-center">No <span class="text-primary">Websites</span> Found 🤦‍♂️</h3>
       </div>
-    <?php endforeach ?>
+    <?php endif ?>
+    <div class="row mt-3 mb-4 gap-3">
+      <?php foreach ($websites as $website) : ?>
+        <div class="col-auto">
+          <a href="<?= env('serverUrl') . ':' . $website['md_ws_port_number'] ?>" data-bs-toggle="offcanvas" data-bs-target="#websiteDetails<?= $website['md_ws_id'] ?>" aria-controls="staticBackdrop">
+            <div class="card" style="width: 200px">
+              <div class="text-center card-body">
+                <div class="mb-4">
+                  <img src="<?= base_url('assets/uploads/' . $website['md_ws_logo']) ?>" alt="Logo" style="width: 100%;">
+                </div>
+                <h3 class="card-text fw-light"><?= $website['md_ws_name'] ?></h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      <?php endforeach ?>
+    </div>
   </div>
 </div>
+
+<script>
+  // Search on click
+  const searchBtn = document.querySelector('#search-btn');
+  const searchQuery = document.querySelector('input[name="s_query"]');
+  searchBtn.addEventListener('click', () => {
+    if (searchQuery.value == '') {
+      return;
+    }
+    window.location.href = `<?= base_url('websites?query=') ?>${searchQuery.value}`;
+  });
+
+  // Search on enter
+  searchQuery.addEventListener('keyup', (e) => {
+    if (e.key == 'Enter') {
+      if (searchQuery.value == '') {
+        return;
+      }
+      window.location.href = `<?= base_url('websites?query=') ?>${searchQuery.value}`;
+    }
+  });
+
+  // Clear search
+  const clearSearchBtn = document.querySelector('#clear-search-btn');
+  clearSearchBtn.addEventListener('click', () => {
+    window.location.href = `<?= base_url('websites') ?>`;
+  });
+</script>

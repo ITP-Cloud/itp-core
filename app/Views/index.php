@@ -6,9 +6,6 @@
         <p class="mb-6 lead text-secondary">Tools, engineering and innovation, all<br class="d-none d-xl-block" />in one place! The most intuitive way to build<br class="d-none d-xl-block" />your imagination.</p>
         <div class="text-center text-md-start">
           <a class="btn btn-primary me-3 btn-lg" href="<?= base_url('login') ?>" role="button">Get started</a>
-          <a class="btn btn-link text-primary fw-medium" href="#!" role="button" data-bs-toggle="modal" data-bs-target="#popupVideo">
-            <span class="fas fa-play me-2"></span> Watch the video
-          </a>
         </div>
       </div>
       <div class="col-md-6 text-end">
