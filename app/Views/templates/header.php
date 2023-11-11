@@ -59,13 +59,13 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Home</a></li>
-            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'websites' ? 'active' : '' ?>" aria-current="page" href="<?= base_url('websites') ?>">Websites</a></li>
-            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'docs' ? 'active' : '' ?>" aria-current="page" target="_blank" href="https://github.com/ITP-Cloud/docs">Docs</a></li>
+            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>"><i class="bi bi-house"></i> Home</a></li>
+            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'websites' ? 'active' : '' ?>" aria-current="page" href="<?= base_url('websites') ?>"><i class="bi bi-globe-europe-africa"></i> Websites</a></li>
+            <li class="nav-item"><a class="nav-link fs-1 <?= $page == 'docs' ? 'active' : '' ?>" aria-current="page" target="_blank" href="https://github.com/ITP-Cloud/docs"><i class="bi bi-files-alt"></i> Docs</a></li>
           </ul>
           <div class="d-flex ms-lg-4">
-            <a class="btn btn-secondary-outline" href="<?= base_url('login') ?>">Sign In</a>
-            <a class="btn btn-primary ms-3" href="<?= base_url('register') ?>">Sign Up</a>
+            <a class="btn btn-secondary-outline" href="<?= base_url('login') ?>"><i class="bi bi-box-arrow-in-right"></i> Sign In</a>
+            <a class="btn btn-primary ms-3" href="<?= base_url('register') ?>"><i class="bi bi-box-arrow-in-up"></i> Sign Up</a>
           </div>
         </div>
       </div>
