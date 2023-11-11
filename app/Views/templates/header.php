@@ -59,7 +59,7 @@
   <main class="main" id="top">
     <nav class="navbar navbar-expand-lg navbar-light sticky-top" data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container"><a class="navbar-brand" href="<?= base_url() ?>">
-          <img src="<?= base_url() ?>/assets/images/logos/dark-logo.png" width="31" alt="" />
+          <img src="<?= base_url() ?>/assets/images/logos/dark-logo.png" width="180" alt="" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
