@@ -21,7 +21,6 @@
     <p class="text-muted">Manage your <span class="text-primary">websites</span> here.</p>
   </div>
   <div class="row mt-7 gap-3">
-    <?php $list = [1, 2, 3, 4, 5, 6]; ?>
     <?php foreach ($websites as $website) : ?>
       <div class="col-auto">
         <a href="#" data-bs-toggle="offcanvas" data-bs-target="#websiteDetails<?= $website['md_ws_id'] ?>" aria-controls="staticBackdrop">
