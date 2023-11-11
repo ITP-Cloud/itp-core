@@ -28,7 +28,7 @@
     <div class="position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
       <div class="d-flex align-items-center justify-content-center w-100">
 
-        <div class="row justify-content-between w-100">
+        <div class="row align-items-center justify-content-between w-100">
 
           <div class="col-md-6 d-none d-md-block h-100">
             <div class="mt-4 my-auto">

@@ -56,11 +56,11 @@
 
                 <!-- Code -->
                 <div class="mb-2">
-                  <input type="number" class="form-control form-control-lg w-75 mx-auto text-center" name="token" placeholder="000000" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" value="<?= old('token') ?>" required />
+                  <input type="number" class="form-control form-control-lg w-100 mx-auto text-center" name="token" placeholder="000000" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" value="<?= old('token') ?>" required />
                 </div>
 
                 <div class="d-grid col-8 mx-auto m-3">
-                  <button type="submit" class="btn btn-primary btn-block">Activate</button>
+                  <button type="submit" class="btn btn-primary w-100 btn-block">Activate</button>
                 </div>
 
               </form>
