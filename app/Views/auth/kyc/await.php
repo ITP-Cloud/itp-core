@@ -40,7 +40,7 @@
 
             <div class="m-4 w-75 mx-auto align-items-center text-center">
               <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block pt-5 w-100">
-                <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" width="180" alt="" />
+                <img src="<?= base_url() ?>/assets/images/logos/dark-logo.png" width="180" alt="" />
               </a>
               <!-- <p class="text-center">Buid Your Imagination</p> -->
               <h3 class="py-5 ">Awaiting <span class="text-primary">Verification</span></h3>

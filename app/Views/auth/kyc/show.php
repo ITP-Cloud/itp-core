@@ -40,7 +40,7 @@
 
             <div class="m-4 w-75 mx-auto">
               <a href=" <?= base_url() ?>" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                <img src="<?= base_url() ?>/assets/images/logos/dark-logo.svg" width="180" alt="" />
+                <img src="<?= base_url() ?>/assets/images/logos/dark-logo.png" width="180" alt="" />
               </a>
               <p>You're almost set to start using ITP Cloud, we just need to verify that you're actually a student 😏</p>
 
