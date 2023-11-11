@@ -52,4 +52,14 @@ class ManagedWebsiteModel extends Model
             ->join('users', 'managed_websites.developer_id = users.id')
             ->findAll();
     }
+
+    public function searchWebsites(string $query = '')
+    {
+        return
+            $this->select('managed_websites.*, users.firstname, users.lastname')
+            ->join('users', 'managed_websites.developer_id = users.id')
+            ->like('md_ws_name', $query)
+            ->orLike('md_ws_port_number', $query)
+            ->findAll();
+    }
 }

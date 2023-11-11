@@ -39,7 +39,16 @@ class Home extends BaseController
         $this->data['page'] = 'websites';
         $this->data['title'] = 'Websites | ITP Cloud';
         $this->data['description'] = 'an open source miniature cloud platform for students by students 😏';
-        $this->data['websites'] = (new ManagedWebsiteModel())->getAllWebsites();
+
+        $query = (string) $this->request->getGet('query');
+        $query = strtolower(trim($query));
+        $this->data['query'] = $query;
+
+        if ($query) {
+            $this->data['websites'] = (new ManagedWebsiteModel())->searchWebsites($query);
+        } else {
+            $this->data['websites'] = (new ManagedWebsiteModel())->getAllWebsites();
+        }
 
         return view('templates/header', $this->data) .
             view('websites') .
