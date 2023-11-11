@@ -5,7 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register | ITP Cloud</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/apple-touch-icon.png">
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ITP Cloud | Register" />
+  <meta property="og:url" content="<?= base_url() ?>" />
+  <meta property="og:site_name" content="ITP Cloud | Register />
+  <link rel=" apple-touch-icon" sizes="180x180" href="<?= base_url() ?>/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url() ?>/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/favicon-16x16.png">
   <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>/favicon.ico">
