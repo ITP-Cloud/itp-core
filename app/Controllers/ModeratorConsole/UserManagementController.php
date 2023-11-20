@@ -277,7 +277,7 @@ class UserManagementController extends BaseController
     private function generateSecurePassword()
     {
         $password = '';
-        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#^()_-=+;:,.?';
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#^()_';
 
         for ($i = 0; $i < 16; $i++) {
             $password .= $chars[rand(0, strlen($chars) - 1)];
