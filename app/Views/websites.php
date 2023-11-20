@@ -25,7 +25,7 @@
     <div class="row mt-3 mb-4 gap-3">
       <?php foreach ($websites as $website) : ?>
         <div class="col-auto">
-          <a href="<?= env('serverUrl') . ':' . $website['md_ws_port_number'] ?>">
+          <a href="<?= env('serverUrl') . ':' . $website['md_ws_port_number'] ?>" target="__blank">
             <div class="card" style="width: 200px">
               <div class="text-center card-body">
                 <div class="mb-4">
